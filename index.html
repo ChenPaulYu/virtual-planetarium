@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>virtual-planetarium</title>
     <script src = "./lib/virtualSky/stuquery.js"></script>
     <script src = "./lib/virtualSky/virtualsky.js" type="text/javascript"></script>
 
@@ -47,21 +47,22 @@
         var canvas = document.getElementById('starmap_inner'),
         context = canvas.getContext('2d');
 
-        make_base();
+        // make_base();
 
-        function make_base() {
-            base_image = new Image();
-            base_image.src = '../img/pic.png'
-            base_image.onload = function () {
-                context.globalAlpha = 0.4;
-                // context.rotate(10 * Math.PI / 180);
-                context.drawImage(base_image, 507.29286631014446+100,265.59896883405065-50);
-                context.resetTransform();
+        // function make_base() {
+        //     base_image = new Image();
+        //     base_image.src = './picture/pic.png'
+        //     console.log(base_image)
+        //     base_image.onload = function () {
+        //         context.globalAlpha = 0.4;
+        //         // context.rotate(10 * Math.PI / 180);
+        //         context.drawImage(base_image, 507.29286631014446+100,265.59896883405065-50);
+        //         context.resetTransform();
 
-            }
-        }
+        //     }
+        // }
 
-        context.restore()
+        // context.restore()
 
             
             
