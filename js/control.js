@@ -1,29 +1,22 @@
 if (window.DeviceOrientationEvent) {
 
-    var theta_a = 0 
-    var last_a = 0 
 
-        window.addEventListener('deviceorientation', function (event) {
-            var a  = document.getElementById('alpha'),
-                b  = document.getElementById('beta'),
-                g  = document.getElementById('gamma'),
-                t  = document.getElementById('gesture')
-                alpha = event.alpha,
-                beta = event.beta,
-                gamma = event.gamma;
+    window.addEventListener('deviceorientation', function (event) {
+        var a  = document.getElementById('alpha'),
+            b  = document.getElementById('beta'),
+            g  = document.getElementById('gamma'),
+            t  = document.getElementById('gesture')
+            alpha = event.alpha,
+            beta = event.beta,
+            gamma = event.gamma;
 
-
-            theta_a = alpha-last_a;
             
-            t.innerHTML = theta_a
         
-            a.innerHTML = Math.round(alpha);
-            b.innerHTML = Math.round(beta);
-            g.innerHTML = Math.round(gamma);
+        a.innerHTML = Math.round(alpha);
+        b.innerHTML = Math.round(beta);
+        g.innerHTML = Math.round(gamma);
 
-            last_a = alpha;
-
-        }, false);
+    }, false);
 
         window.addEventListener('devicemotion', function (event) {
 
