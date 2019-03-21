@@ -134,9 +134,12 @@ const collection = database.ref('textcollection');
     context = canvas.getContext('2d');
 
     $('#next').on('click',function(){
-        target = target + 1
-        planetarium.target = target
-        planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
+        if(target < 11) {
+            console.log(target)
+            target = target + 1
+            planetarium.target = target
+            planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
+        }
     })
 
     $('#magnify').on('click', function () {
@@ -163,24 +166,41 @@ const collection = database.ref('textcollection');
     latest.on('value', function (snapshot) {
         var newTime = new Date();
         var data = snapshot.val().gesture
-        if(data == 'right') {
-            if(!use) {
-                console.log('right')
+        if (newTime - lastTime > 500) {
+            if(data == 'right') {
+                if(!use) {
+                    if (target > 0) {
+                        target = target - 1
+                        planetarium.target = target
+                        planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
+                    }
+                    console.log('right')
+                }
+                use = true
+            }else if(data == 'left') {
+            if (!use) {
+                    if (target < 12) {
+                        target = target + 1
+                        planetarium.target = target
+                        planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
+                    }
+                console.log('left')
             }
-            use = true
-        }else if(data == 'left') {
-           if (!use) {
-               console.log('left')
-           }
-            use = true
-        }else if(data == 'none') {
-            use = false
+                use = true
+            }else if(data == 'none') {
+                use = false
+            }
+            lastTime = newTime
         }
+
+        setTimeout(function(){
+            use = false
+        },2000)
         // if(newTime-lastTime > 500) {
-        //     target = target + 1
-        //     planetarium.target = target
-        //     planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
-        //     lastTime = newTime
+            // target = target + 1
+            // planetarium.target = target
+            // planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
+            // lastTime = newTime
 
         // }
         // console.log(newTime-lastTime)

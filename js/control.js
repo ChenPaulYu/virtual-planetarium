@@ -89,12 +89,18 @@ function main() {
     if (values.v > 20) {
         $('#gesture').text('左')
         database.ref('textcollection/latest').update({
-            'gesture': 'left'
+            'gesture': 'left',
+            'theta'  : values.v,
+            'p' : values.p,
+            'lastP': values.lastP
         });
     } else if (values.v < -20) {
         $('#gesture').text('右')
         database.ref('textcollection/latest').update({
-            'gesture': 'right'
+            'gesture': 'right',
+            'theta'  : values.v,
+            'p' : values.p,
+            'lastP': values.lastP
         });
     } else {
         $('#gesture').text('無')
