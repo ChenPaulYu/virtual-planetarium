@@ -110,13 +110,12 @@ function main() {
         }
         use = true;
     } else {
-        if(use) {
-            $('#gesture').text('無')
-            database.ref('textcollection/latest').update({
-                'gesture': 'none'
-            });
-        }
+        $('#gesture').text('無')
+        database.ref('textcollection/latest').update({
+            'gesture': 'none'
+        });
         use = false;
+        
     }
 
 
