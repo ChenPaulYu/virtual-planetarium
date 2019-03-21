@@ -18,6 +18,16 @@ var values = {
     xyzA: 0
 }
 
+var config = {
+    apiKey: "AIzaSyDCK218r1QNc85tc2Qxq_KTe7RpIz3I8Ec",
+    authDomain: "virtual-planetarium.firebaseapp.com",
+    databaseURL: "https://virtual-planetarium.firebaseio.com",
+    projectId: "virtual-planetarium",
+    storageBucket: "virtual-planetarium.appspot.com",
+    messagingSenderId: "355869410482"
+};
+firebase.initializeApp(config);
+
 
 function orientation(event) {
     if (event.gamma) {
@@ -37,7 +47,7 @@ function handleMotion(event) {
     }
 }
 
-var count = 0
+
 
 function main() {
 
@@ -51,9 +61,9 @@ function main() {
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
-    if (values.v > 10) {
+    if (values.v > 30) {
         $('#gesture').text('下')
-    }else  if(values.v < -10){
+    }else  if(values.v < -30){
         $('#gesture').text('上')
     }
     

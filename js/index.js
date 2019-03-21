@@ -85,6 +85,16 @@
       }
 
   ]
+  
+var config = {
+    apiKey: "AIzaSyDCK218r1QNc85tc2Qxq_KTe7RpIz3I8Ec",
+    authDomain: "virtual-planetarium.firebaseapp.com",
+    databaseURL: "https://virtual-planetarium.firebaseio.com",
+    projectId: "virtual-planetarium",
+    storageBucket: "virtual-planetarium.appspot.com",
+    messagingSenderId: "355869410482"
+};
+firebase.initializeApp(config);
 
 
   S(document).ready(function () {
