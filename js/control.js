@@ -67,16 +67,21 @@ function main() {
     $('#a').text(values.a)
     $('#xyzA').text(xyzA)
     if (values.v > 30) {
-        $('#gesture').text('下')
-        database.ref('textcollection/latest').update({
-            'gesture': 'down'
-        });
-    } else if (values.v < -30) {
         $('#gesture').text('上')
         database.ref('textcollection/latest').update({
             'gesture': 'up'
         });
-    } 
+    } else if (values.v < -30) {
+        $('#gesture').text('下')
+        database.ref('textcollection/latest').update({
+            'gesture': 'down'
+        });
+    } else {
+        $('#gesture').text('無')
+        database.ref('textcollection/latest').update({
+            'gesture': 'none'
+        });
+    }
 
 
 }
