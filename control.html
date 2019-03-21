@@ -11,22 +11,36 @@
       font-size: 15px;
     }
   </style>
-
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script>
     if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', function (event) {
-        var a = document.getElementById('alpha'),
+
+      $(window).on('deviceorientation',function(event){
+          var a = document.getElementById('alpha'),
           b = document.getElementById('beta'),
           g = document.getElementById('gamma'),
           alpha = event.alpha,
           beta = event.beta,
           gamma = event.gamma;
 
-        a.innerHTML = Math.round(alpha);
-        b.innerHTML = Math.round(beta);
-        g.innerHTML = Math.round(gamma);
+          a.innerHTML = Math.round(alpha);
+          b.innerHTML = Math.round(beta);
+          g.innerHTML = Math.round(gamma);
+      },false)
 
-      }, false);
+      // window.addEventListener('deviceorientation', function (event) {
+      //   var a = document.getElementById('alpha'),
+      //     b = document.getElementById('beta'),
+      //     g = document.getElementById('gamma'),
+      //     alpha = event.alpha,
+      //     beta = event.beta,
+      //     gamma = event.gamma;
+
+      //   a.innerHTML = Math.round(alpha);
+      //   b.innerHTML = Math.round(beta);
+      //   g.innerHTML = Math.round(gamma);
+
+      // }, false);
     } else {
       document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
     }
