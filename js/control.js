@@ -28,6 +28,9 @@ var config = {
 };
 firebase.initializeApp(config);
 
+const database = firebase.database();
+const collection = database.ref('textcollection');
+
 
 function orientation(event) {
     if (event.gamma) {
@@ -61,10 +64,22 @@ function main() {
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
+
+
+
+
+
+
     if (values.v > 30) {
         $('#gesture').text('下')
+        database.ref('textcollection/latest').update({
+            'gesture': 'down'
+        });
     }else  if(values.v < -30){
         $('#gesture').text('上')
+        database.ref('textcollection/latest').update({
+            'gesture': 'up'
+        });
     }
     
 
@@ -79,4 +94,4 @@ if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
     document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
 }
 
-setInterval(main,300)
+setInterval(main,100)
