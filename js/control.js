@@ -1,4 +1,8 @@
-    if (window.DeviceOrientationEvent) {
+if (window.DeviceOrientationEvent) {
+
+    var theta_a = 0 
+    var last_a = 0 
+
         window.addEventListener('deviceorientation', function (event) {
             var a  = document.getElementById('alpha'),
                 b  = document.getElementById('beta'),
@@ -6,14 +10,26 @@
                 alpha = event.alpha,
                 beta = event.beta,
                 gamma = event.gamma;
+
+
+            theta_a = alpha-last_a
+            
+            if(Math.abs(theta_a) > 300) {
+                $(h1).text('YES');
+            }else {
+                $(h1).text('NO');
+            }
         
             a.innerHTML = Math.round(alpha);
             b.innerHTML = Math.round(beta);
             g.innerHTML = Math.round(gamma);
 
+            last_a = alpha
+
         }, false);
 
         window.addEventListener('devicemotion', function (event) {
+
             var ax = document.getElementById('ax'),
                 ay = document.getElementById('ay'),
                 az = document.getElementById('az'),
@@ -27,7 +43,7 @@
             az.innerHTML = Math.round(az_value);
 
         }, false);
-        
-    } else {
+
+} else {
         document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
-    }
+}
