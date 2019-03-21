@@ -65,11 +65,6 @@ function main() {
     $('#v').text(values.v)
     $('#a').text(values.a)
 
-
-
-
-
-
     if (values.v > 30) {
         $('#gesture').text('下')
         database.ref('textcollection/latest').update({
@@ -94,4 +89,4 @@ if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
     document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
 }
 
-setInterval(main,100)
+setInterval(main,500)
