@@ -85,28 +85,38 @@ function main() {
     $('#zA').text(values.zA)
     $('#xyzA').text(xyzA)
 
-
+    var use = false;
     if (values.v > 20 && values.p > 50) {
-        $('#gesture').text('左')
-        database.ref('textcollection/latest').update({
-            'gesture': 'left',
-            'theta'  : values.v,
-            'p' : values.p,
-            'lastP': values.lastP
-        });
+        if(!use) {
+            $('#gesture').text('左')
+            database.ref('textcollection/latest').update({
+                'gesture': 'left',
+                'theta': values.v,
+                'p': values.p,
+                'lastP': values.lastP
+            });
+        }
+
+        use = true;
     } else if (values.v < -20 && values.p < -30) {
-        $('#gesture').text('右')
-        database.ref('textcollection/latest').update({
-            'gesture': 'right',
-            'theta'  : values.v,
-            'p' : values.p,
-            'lastP': values.lastP
-        });
+        if(!use) {
+            $('#gesture').text('右')
+            database.ref('textcollection/latest').update({
+                'gesture': 'right',
+                'theta': values.v,
+                'p': values.p,
+                'lastP': values.lastP
+            });
+        }
+        use = true;
     } else {
-        $('#gesture').text('無')
-        database.ref('textcollection/latest').update({
-            'gesture': 'none'
-        });
+        if(use) {
+            $('#gesture').text('無')
+            database.ref('textcollection/latest').update({
+                'gesture': 'none'
+            });
+        }
+        use = false;
     }
 
 
