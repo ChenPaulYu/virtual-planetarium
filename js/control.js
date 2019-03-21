@@ -78,14 +78,14 @@ function main() {
 
 
     if (values.v > 20) {
-        $('#gesture').text('左')
-        database.ref('textcollection/latest').update({
-            'gesture': 'up'
-        });
-    } else if (values.v < -20) {
         $('#gesture').text('右')
         database.ref('textcollection/latest').update({
-            'gesture': 'down'
+            'gesture': 'right'
+        });
+    } else if (values.v < -20) {
+        $('#gesture').text('左')
+        database.ref('textcollection/latest').update({
+            'gesture': 'left'
         });
     } 
     // else {
