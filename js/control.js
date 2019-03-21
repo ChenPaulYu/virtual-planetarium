@@ -50,7 +50,7 @@ function main() {
     values.xyzA = Math.sqrt(Math.pow(motionData.x, 2) + Math.pow(motionData.y, 2) + Math.pow(motionData.z, 2));
     values.v = values.p - values.lastP
     values.a = values.v - values.lastV
-    $('#xyzA').text(count)
+    $('#xyzA').text(values.xyzA)
 }
 
 
