@@ -60,7 +60,16 @@ function main() {
     values.lastP = values.p
     values.lastV = values.v
     values.lastA = values.a
-    values.p = orientationData.alpha
+
+    if(orientationData.alpha > 180) {
+        values.p = -1* (360 - orientationData.alpha)
+
+    }else {
+        values.p = orientationData.alpha
+    }
+
+
+
     values.xA = motionData.x
     values.yA = motionData.y
     values.zA = motionData.z

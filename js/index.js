@@ -158,22 +158,19 @@ const collection = database.ref('textcollection');
     //     planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     // },3000)
     var lastTime = new Date();
-    var count = -1
     var use = false;
     const latest = database.ref('textcollection/latest');
     latest.on('value', function (snapshot) {
         var newTime = new Date();
         var data = snapshot.val().gesture
-        count++
-        console.log(count)
-        if(data == 'up') {
+        if(data == 'right') {
             if(!use) {
-                console.log('up')
+                console.log('right')
             }
             use = true
-        }else if(data == 'down') {
+        }else if(data == 'left') {
            if (!use) {
-               console.log('down')
+               console.log('left')
            }
             use = true
         }else if(data == 'none') {
