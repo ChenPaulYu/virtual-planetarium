@@ -51,9 +51,9 @@ function main() {
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
-    if (values.v > 3) {
+    if (values.v > 10) {
         $('#gesture').text('下')
-    }else  if(values.v < -3){
+    }else  if(values.v < -10){
         $('#gesture').text('上')
     }
     
