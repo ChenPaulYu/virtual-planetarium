@@ -56,7 +56,7 @@ function main() {
 
     values.lastP = Math.round(values.p)
     values.lastV = Math.round(values.v)
-    values.lastA = Math.rou(values.a)
+    values.lastA = Math.round(values.a)
     values.p = orientationData.beta
     values.xyzA = Math.sqrt(Math.pow(motionData.x, 2) + Math.pow(motionData.y, 2) + Math.pow(motionData.z, 2));
     values.v = values.p - values.lastP
