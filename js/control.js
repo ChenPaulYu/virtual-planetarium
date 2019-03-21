@@ -31,8 +31,10 @@ if (window.DeviceOrientationEvent) {
         ay.innerHTML = Math.round(ay_value);
         az.innerHTML = Math.round(az_value);
 
-        if(ax_value != 0) {
-            gesture.innerHTML = "改變"
+        if(ax_value > 0) {
+            gesture.innerHTML = " > 0 "
+        } else if (ax_value < 0) {
+            gesture.innerHTML = " < 0 "
         }
 
     }, false);
