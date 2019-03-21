@@ -22,9 +22,9 @@ var values = {
 function orientation(event) {
     if (event.gamma) {
         orientationData = {
-            gamma: Math.round(event.gamma) || 0,
-            beta : Math.round(event.beta) || 0,
-            alpha: Math.round(event.alpha) || 0
+            gamma: event.gamma || 0,
+            beta : event.beta  || 0,
+            alpha: event.alpha || 0
         }
     }
 }
@@ -41,9 +41,9 @@ var count = 0
 
 function main() {
 
-    values.lastP = values.p
-    values.lastV = values.v
-    values.lastA = values.a
+    values.lastP = Math.round(values.p)
+    values.lastV = Math.random(values.v)
+    values.lastA = Math.random(values.a)
     values.p = orientationData.beta
     values.xyzA = Math.sqrt(Math.pow(motionData.x, 2) + Math.pow(motionData.y, 2) + Math.pow(motionData.z, 2));
     values.v = values.p - values.lastP
@@ -51,9 +51,9 @@ function main() {
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
-    if (values.v > 5) {
+    if (values.v > 3) {
         $('#gesture').text('下')
-    }else  if(values.v < -5){
+    }else  if(values.v < -3){
         $('#gesture').text('上')
     }
     
@@ -69,4 +69,4 @@ if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
     document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
 }
 
-setInterval(main,100)
+setInterval(main,300)
