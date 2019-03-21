@@ -1,14 +1,44 @@
 <!DOCTYPE html>
-<!-- saved from url=(0074)https://www.oxxostudio.tw/demo/201506/html5-device-orientation-demo01.html -->
 <html lang="en">
-  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Control</title>
-    <script src="./js/control.js"></script>
-  </head>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>HTML5 控制裝置陀螺儀 ( 三軸 ) demo1 - OXXO.STUDIO</title>
+  <style>
+    body {
+      margin: 50px;
+      font-size: 15px;
+    }
+  </style>
+
+  <script>
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', function (event) {
+        var a = document.getElementById('alpha'),
+          b = document.getElementById('beta'),
+          g = document.getElementById('gamma'),
+          alpha = event.alpha,
+          beta = event.beta,
+          gamma = event.gamma;
+
+        a.innerHTML = Math.round(alpha);
+        b.innerHTML = Math.round(beta);
+        g.innerHTML = Math.round(gamma);
+
+      }, false);
+    } else {
+      document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
+    }
+  </script>
+
+</head>
+
 <body>
-    alpha:<span id="alpha"></span><br>
-    beta:<span id="beta"></span><br>
-    gamma:<span id="gamma"></span><br>
+  alpha:<span id="alpha"></span><br>
+  beta:<span id="beta"></span><br>
+  gamma:<span id="gamma"></span><br>`
+
 </body>
+
 </html>
