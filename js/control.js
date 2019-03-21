@@ -47,9 +47,9 @@ function orientation(event) {
 
 function handleMotion(event) {
     motionData = {
-        z: event.acceleration.z || 0,
-        y: event.acceleration.y || 0,
-        x: event.acceleration.x || 0
+        z: Math.round(event.acceleration.z) || 0,
+        y: Math.round(event.acceleration.y) || 0,
+        x: Math.round(event.acceleration.x) || 0
     }
 }
 
@@ -57,8 +57,8 @@ function handleMotion(event) {
 
 function main() {
 
-    values.lastP = Math.round(values.p)
-    values.lastV = Math.round(values.v)
+    values.lastP = values.p
+    values.lastV = values.v
     values.lastA = values.a
     values.p = orientationData.beta
     values.xA = motionData.x
