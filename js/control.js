@@ -87,13 +87,12 @@ function main() {
         database.ref('textcollection/latest').update({
             'gesture': 'left'
         });
-    } 
-    // else {
-    //     $('#gesture').text('無')
-    //     database.ref('textcollection/latest').update({
-    //         'gesture': 'none'
-    //     });
-    // }
+    } else {
+        $('#gesture').text('無')
+        database.ref('textcollection/latest').update({
+            'gesture': 'none'
+        });
+    }
 
 
 }
