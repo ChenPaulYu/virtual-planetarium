@@ -42,15 +42,18 @@ function handleMotion(event) {
 var count = 0
 
 function main() {
+
     values.lastP = values.p
     values.lastV = values.v
     values.lastA = values.a
-
+    $('#p').text(values.p)
+    $('#v').text(values.v)
+    $('#a').text(values.a)
     values.p = orientationData.beta
     values.xyzA = Math.sqrt(Math.pow(motionData.x, 2) + Math.pow(motionData.y, 2) + Math.pow(motionData.z, 2));
     values.v = values.p - values.lastP
     values.a = values.v - values.lastV
-    $('#xyzA').text(values.xyzA)
+
 }
 
 
