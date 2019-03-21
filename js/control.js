@@ -1,13 +1,12 @@
 if (window.DeviceOrientationEvent) {
-
-
+    
     window.addEventListener('deviceorientation', function (event) {
-        var a  = document.getElementById('alpha'),
-            b  = document.getElementById('beta'),
-            g  = document.getElementById('gamma'),
-            alpha = event.alpha,
-            beta = event.beta,
-            gamma = event.gamma;
+        var a = document.getElementById('alpha');
+        var b = document.getElementById('beta');
+        var g = document.getElementById('gamma');
+        var alpha = event.alpha;
+        var beta = event.beta;
+        var gamma = event.gamma;
 
             
         
@@ -17,22 +16,22 @@ if (window.DeviceOrientationEvent) {
 
     }, false);
 
-        window.addEventListener('devicemotion', function (event) {
+    window.addEventListener('devicemotion', function (event) {
 
-            var ax = document.getElementById('ax'),
-                ay = document.getElementById('ay'),
-                az = document.getElementById('az'),
+        var ax = document.getElementById('ax');
+        var ay = document.getElementById('ay');
+        var az = document.getElementById('az');
 
-            ax_value = event.acceleration.x
-            ay_value = event.acceleration.y
-            az_value = event.acceleration.z
+        var ax_value = event.acceleration.x;
+        var ay_value = event.acceleration.y;
+        var az_value = event.acceleration.z;
 
-            ax.innerHTML = Math.round(ax_value);
-            ay.innerHTML = Math.round(ay_value);
-            az.innerHTML = Math.round(az_value);
+        ax.innerHTML = Math.round(ax_value);
+        ay.innerHTML = Math.round(ay_value);
+        az.innerHTML = Math.round(az_value);
 
-        }, false);
+    }, false);
 
 } else {
-        document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
+    document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
 }
