@@ -59,30 +59,27 @@ function main() {
     values.lastA = values.a
     values.p = orientationData.beta
     values.xyzA = Math.sqrt(Math.pow(motionData.x, 2) + Math.pow(motionData.y, 2) + Math.pow(motionData.z, 2));
+    xyzA = Math.round(values.xyzA)
     values.v = values.p - values.lastP
     values.a = values.v - values.lastV
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
-    $('#xyzA').text(Math.round(values.xyzA))
-
-    if (values.v > 30) {
-        $('#gesture').text('下')
-        database.ref('textcollection/latest').update({
-            'gesture': 'down'
-        });
-    }else  if(values.v < -30){
-        $('#gesture').text('上')
-        database.ref('textcollection/latest').update({
-            'gesture': 'up'
-        });
-    }else {
-        $('#gesture').text('無')
-        database.ref('textcollection/latest').update({
-            'gesture': 'no'
-        });
+    $('#xyzA').text(xyzA)
+    if(xyzA > 10) {
+        if (values.v > 30) {
+            $('#gesture').text('下')
+            database.ref('textcollection/latest').update({
+                'gesture': 'down'
+            });
+        } else if (values.v < -30) {
+            $('#gesture').text('上')
+            database.ref('textcollection/latest').update({
+                'gesture': 'up'
+            });
+        } 
     }
-    
+
 
 }
 

@@ -85,7 +85,7 @@
       }
 
   ]
-  
+
 var config = {
     apiKey: "AIzaSyDCK218r1QNc85tc2Qxq_KTe7RpIz3I8Ec",
     authDomain: "virtual-planetarium.firebaseapp.com",
@@ -95,7 +95,8 @@ var config = {
     messagingSenderId: "355869410482"
 };
 firebase.initializeApp(config);
-
+const database = firebase.database();
+const collection = database.ref('textcollection');
 
   S(document).ready(function () {
     var target = 0
@@ -156,7 +157,22 @@ firebase.initializeApp(config);
     //     planetarium.target = target
     //     planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     // },3000)
+    var lastTime = new Date();
+    const latest = database.ref('textcollection/latest');
+    latest.on('value', function (snapshot) {
+        var newTime = new Date();
+        var data = snapshot.val().gesture
+        console.log(newTime - lastTime)
+        if(newTime-lastTime > 500) {
+            target = target + 1
+            planetarium.target = target
+            planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
+            lastTime = newTime
 
+        }
+        // console.log(newTime-lastTime)
+        // console.log(data)
+    });
 
 
 
