@@ -86,7 +86,7 @@ function main() {
     $('#xyzA').text(xyzA)
 
     var use = false;
-    if (values.v > 20 && values.p > 30) {
+    if (values.v > 20 && values.p > 20) {
         if(!use) {
             $('#gesture').text('左')
             database.ref('textcollection/latest').update({
@@ -98,7 +98,7 @@ function main() {
         }
 
         use = true;
-    } else if (values.v < -20 && values.p < -30) {
+    } else if (values.v < -20 && values.p < -20) {
         if(!use) {
             $('#gesture').text('右')
             database.ref('textcollection/latest').update({
