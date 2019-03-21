@@ -86,7 +86,7 @@ function main() {
     $('#xyzA').text(xyzA)
 
 
-    if (values.v > 20) {
+    if (values.v > 20 && values.p > 50) {
         $('#gesture').text('左')
         database.ref('textcollection/latest').update({
             'gesture': 'left',
@@ -94,7 +94,7 @@ function main() {
             'p' : values.p,
             'lastP': values.lastP
         });
-    } else if (values.v < -20) {
+    } else if (values.v < -20 && values.p < -30) {
         $('#gesture').text('右')
         database.ref('textcollection/latest').update({
             'gesture': 'right',
