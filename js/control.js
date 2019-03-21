@@ -5,7 +5,6 @@ if (window.DeviceOrientationEvent) {
         var a  = document.getElementById('alpha'),
             b  = document.getElementById('beta'),
             g  = document.getElementById('gamma'),
-            t  = document.getElementById('gesture')
             alpha = event.alpha,
             beta = event.beta,
             gamma = event.gamma;
