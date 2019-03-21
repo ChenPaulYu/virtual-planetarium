@@ -23,7 +23,7 @@ function orientation(event) {
     if (event.gamma) {
         orientationData = {
             gamma: Math.round(event.gamma) || 0,
-            beta: Math.round(event.beta) || 0,
+            beta : Math.round(event.beta) || 0,
             alpha: Math.round(event.alpha) || 0
         }
     }
@@ -51,6 +51,12 @@ function main() {
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
+    if (values.v > 5) {
+        $('#gesture').text('下')
+    }else  if(values.v < -5){
+        $('#gesture').text('上')
+    }
+    
 
 }
 
