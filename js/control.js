@@ -22,9 +22,9 @@ var values = {
 function orientation(event) {
     if (event.gamma) {
         orientationData = {
-            gamma: event.gamma || 0,
-            beta : event.beta  || 0,
-            alpha: event.alpha || 0
+            gamma: Math.round(event.gamma) || 0,
+            beta: Math.round(event.beta) || 0,
+            alpha: Math.round(event.alpha) || 0
         }
     }
 }
