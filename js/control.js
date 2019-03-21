@@ -12,19 +12,15 @@ if (window.DeviceOrientationEvent) {
                 gamma = event.gamma;
 
 
-            theta_a = alpha-last_a
+            theta_a = alpha-last_a;
             
-            if(Math.abs(theta_a) > 100) {
-                $(h1).text('YES');
-            }else {
-                $(h1).text('NO');
-            }
+            $('#gesture').text(theta_a);
         
             a.innerHTML = Math.round(alpha);
             b.innerHTML = Math.round(beta);
             g.innerHTML = Math.round(gamma);
 
-            last_a = alpha
+            last_a = alpha;
 
         }, false);
 
