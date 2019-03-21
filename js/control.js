@@ -76,6 +76,11 @@ function main() {
         database.ref('textcollection/latest').update({
             'gesture': 'up'
         });
+    }else {
+        $('#gesture').text('無')
+        database.ref('textcollection/latest').update({
+            'gesture': 'no'
+        });
     }
     
 
