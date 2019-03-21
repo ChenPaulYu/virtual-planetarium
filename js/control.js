@@ -14,7 +14,7 @@ if (window.DeviceOrientationEvent) {
 
             theta_a = alpha-last_a
             
-            if(Math.abs(theta_a) > 300) {
+            if(Math.abs(theta_a) > 100) {
                 $(h1).text('YES');
             }else {
                 $(h1).text('NO');
