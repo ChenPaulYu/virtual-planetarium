@@ -66,7 +66,7 @@ function main() {
     $('#v').text(values.v)
     $('#a').text(values.a)
     $('#xyzA').text(xyzA)
-    if(xyzA > 10) {
+    if(xyzA > 5) {
         if (values.v > 10) {
             $('#gesture').text('下')
             database.ref('textcollection/latest').update({
