@@ -7,6 +7,7 @@ if (window.DeviceOrientationEvent) {
             var a  = document.getElementById('alpha'),
                 b  = document.getElementById('beta'),
                 g  = document.getElementById('gamma'),
+                t  = document.getElementById('gesture')
                 alpha = event.alpha,
                 beta = event.beta,
                 gamma = event.gamma;
@@ -14,7 +15,7 @@ if (window.DeviceOrientationEvent) {
 
             theta_a = alpha-last_a;
             
-            $('#gesture').text(theta_a);
+            t.innerHTML = theta_a
         
             a.innerHTML = Math.round(alpha);
             b.innerHTML = Math.round(beta);
