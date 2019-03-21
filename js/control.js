@@ -64,7 +64,7 @@ function main() {
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
-    $('#xyzA').text(values.xyzA)
+    $('#xyzA').text(Math.round(values.xyzA))
 
     if (values.v > 30) {
         $('#gesture').text('下')
