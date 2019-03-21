@@ -64,6 +64,7 @@ function main() {
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
+    $('#xyzA').text(values.xyzA)
 
     if (values.v > 30) {
         $('#gesture').text('下')
@@ -89,4 +90,4 @@ if (window.DeviceOrientationEvent && window.DeviceMotionEvent) {
     document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
 }
 
-setInterval(main,500)
+setInterval(main,300)
