@@ -67,12 +67,12 @@ function main() {
     $('#a').text(values.a)
     $('#xyzA').text(xyzA)
     if(xyzA > 10) {
-        if (values.v > 30) {
+        if (values.v > 10) {
             $('#gesture').text('下')
             database.ref('textcollection/latest').update({
                 'gesture': 'down'
             });
-        } else if (values.v < -30) {
+        } else if (values.v < -10) {
             $('#gesture').text('上')
             database.ref('textcollection/latest').update({
                 'gesture': 'up'
