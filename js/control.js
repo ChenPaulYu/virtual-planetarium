@@ -60,7 +60,7 @@ function main() {
     values.lastP = values.p
     values.lastV = values.v
     values.lastA = values.a
-    values.p = orientationData.beta
+    values.p = orientationData.alpha
     values.xA = motionData.x
     values.yA = motionData.y
     values.zA = motionData.z
@@ -76,19 +76,14 @@ function main() {
     $('#zA').text(values.zA)
     $('#xyzA').text(xyzA)
 
-    if(values.xA > 5) {
-        $('#gesture').text('左')
-    }else if(values.xA < -5) {
-        $('#gesture').text('右')
-    }
 
     if (values.v > 30) {
-        $('#gesture').text('上')
+        $('#gesture').text('左')
         database.ref('textcollection/latest').update({
             'gesture': 'up'
         });
     } else if (values.v < -30) {
-        $('#gesture').text('下')
+        $('#gesture').text('右')
         database.ref('textcollection/latest').update({
             'gesture': 'down'
         });
