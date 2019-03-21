@@ -1,5 +1,5 @@
 if (window.DeviceOrientationEvent) {
-    
+
     window.addEventListener('deviceorientation', function (event) {
         var a = document.getElementById('alpha');
         var b = document.getElementById('beta');
@@ -21,6 +21,7 @@ if (window.DeviceOrientationEvent) {
         var ax = document.getElementById('ax');
         var ay = document.getElementById('ay');
         var az = document.getElementById('az');
+        var gesture = document.getElementById('gesture');
 
         var ax_value = event.acceleration.x;
         var ay_value = event.acceleration.y;
@@ -29,6 +30,10 @@ if (window.DeviceOrientationEvent) {
         ax.innerHTML = Math.round(ax_value);
         ay.innerHTML = Math.round(ay_value);
         az.innerHTML = Math.round(az_value);
+
+        if(ax_value != 0) {
+            gesture.innerHTML = "改變"
+        }
 
     }, false);
 
