@@ -1,95 +1,102 @@
 {
+    
     "star" : [
         { 
-            "name": "UMa",
-            "number": 82,
-            "offsetx": 500,
-            "offsety": 100,
-            "height" : 500,
-            "width" : 500,
-            "ra": 160.9905542,
-            "dec": 55.0190889,
-            "picture": "大熊.png"
-        },{
-            "name": "UMi",
-            "number": 83,
-            "offsetx": 600,
-            "offsety": 100,
-            "height": 200,
-            "width": 200,
-            "ra": 254.2877083,
-            "dec": 82,
-            "picture": "小熊.png"
-        },{
-            "name": "Her",
-            "number": 39,
-            "offsetx": -300,
-            "offsety": -300,
-            "height": 500,
-            "width": 500,
-            "ra": 255.3025000,
-            "dec": 30.6599417,
-            "picture": "武仙.png"
-        },{
-            "name": "Crv",
-            "number": 27,
-            "offsetx": -300,
-            "offsety": -300,
-            "height": 500,
-            "width": 500,
-            "ra": 194.1820667,
-            "dec": -20.756700,
-            "picture": "烏鴉.png"
-        },{
-            "name": "Sun",
-            "number": 0,
-            "offsetx": -300,
-            "offsety": -300,
-            "height": 500,
-            "width": 500,
-            "ra": 0,
-            "dec": 0,
-            "picture": ""
-        },{
-            "name": "Aur",
-            "number": 7,
-            "offsetx": -300,
-            "offsety": -300,
-            "height": 500,
-            "width": 500,
-            "ra": 92.2250000,
-            "dec": 40.8651694,
-            "picture": "御夫.png"
-        },{
-            "name": "Vir",
-            "number": 85,
-            "offsetx": -300,
-            "offsety": -300,
-            "height": 500,
-            "width": 500,
-            "ra": 202.4695750,
-            "dec": 0.0791694,
-            "picture": "處女.png"
-        },{
-            "name": "Oph",
-            "number": 58,
-            "offsetx": -300,
-            "offsety": -300,
-            "height": 500,
-            "width": 500,
-            "ra": 268.4625000,
-            "dec": 0.0791694,            
-            "picture": "蛇夫.png"
+            "name": "Cnc",
+            "number": 11,
+            "offsetx": -100,
+            "offsety": -180,
+            "height" : 400,
+            "width" : 349,
+            "picture": "VhsvoBi.png"
         },{
             "name": "Leo",
             "number": 45,
-            "offsetx": -300,
+            "offsetx": -370,
+            "offsety": -280,
+            "height": 526.95,
+            "width": 714.375,
+            "picture": "r14nG38.png"
+        },{
+            "name": "Vir",
+            "number": 85,
+            "offsetx": -450,
             "offsety": -300,
+            "height": 609,
+            "width": 864,
+            "picture": "aUMoufN.png"
+        },{
+            "name": "Oph",
+            "number": 58,
+            "offsetx": -400,
+            "offsety": -550,
+            "height": 950,
+            "width": 950,
+            "picture": "0SntzBk.png"
+        },{
+            "name": "Gem",
+            "number": 37,
+            "offsetx": -250,
+            "offsety": -400,
+            "height": 764.3,
+            "width": 605.1,
+            "picture": "hOpDcPk.png"
+        },{
+            "name": "UMa",
+            "number": 82,
+            "offsetx": -500,
+            "offsety": -200,
+            "height": 600,
+            "width": 900,
+            "picture": "XNCL7ES.png"
+        },{
+            "name": "Boo",
+            "number": 8,
+            "offsetx": -250,
+            "offsety": -600,
+            "height": 900,
+            "width": 900,
+            "picture": "QewmbQX.png"
+        },{
+            "name": "Lyr",
+            "number": 51,
+            "offsetx": -100,
+            "offsety": -95,
+            "height": 200,
+            "width": 200,
+            "picture": "CZ7nseL.png"
+        },{
+            "name": "Tau",
+            "number": 77,
+            "offsetx": -350,
+            "offsety": -250,
             "height": 500,
             "width": 500,
-            "ra": 179.3999333,
-            "dec": 15.7834611,
-            "picture": "獅子.png"
+            "picture": "WlVjVsY.png"
+        },{
+            "name": "UMi",
+            "number": 83,
+            "offsetx": -130,
+            "offsety": -250,
+            "height": 500,
+            "width": 400,           
+            "picture": "OXbBvgs.png"
+        },{
+            "name": "Her",
+            "number": 45,
+            "offsetx": 570,
+            "offsety": 0,
+            "height": 600,
+            "width": 600,
+            "picture": "EKBlLYU.png"
+        },{
+            "name": "Cyg",
+            "number": 45,
+            "offsetx": 640,
+            "offsety": 50,
+            "height": 500,
+            "width": 500,
+            "picture": "veQjqx4.png"
         }
     ] 
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)https://www.oxxostudio.tw/demo/201506/html5-device-orientation-demo01.html -->
+<html lang="en">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>HTML5 控制裝置陀螺儀 ( 三軸 ) demo </title>
+	<style>
+		body{
+			margin:50px;
+			font-size:15px;
+		}
+	</style>
+	<script>
+	if(window.DeviceOrientationEvent) {
+		window.addEventListener('deviceorientation', function(event) {
+      var a = document.getElementById('alpha'),
+      		b = document.getElementById('beta'),
+      		g = document.getElementById('gamma'),
+      		alpha = event.alpha,
+      		beta = event.beta,
+		  		gamma = event.gamma;
+      
+      a.innerHTML = Math.round(alpha);
+      b.innerHTML = Math.round(beta);
+      g.innerHTML = Math.round(gamma);
+          
+		}, false);
+  }else{
+  	document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
+  }
+	</script>
+<style type="text/css" id="parrottalks-notetaker-style">      html > body.evernote_clearly__before_visible #parrottalks-notetaker > iframe,      html > body.clearlyBeforeVisible #parrottalks-notetaker > iframe:not(#evernoteGlobalTools):not(#evernoteOptionsPage):not(#evernoteClearlyArticle) {        visibility: visible !important;      }      .evernote_clearly__before_visible #evernote_clearly__reformat,      .clearlyBeforeVisible #evernoteClearlyArticle {        z-index: 2147483646 !important;      }    </style></head>
+<body>
+
+
+	alpha:<span id="alpha"></span><br>
+	beta:<span id="beta"></span><br>
+	gamma:<span id="gamma"></span><br>
+		
+  <style>
+  #info {
+    position: fixed;
+    z-index: 999;
+    bottom: 20px;
+    left: 0px;
+    background: #222;
+    padding: 20px 30px;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, .5) 0 0 10px;
+    border-radius: 0 5px 5px 0;
+		font-size:16px;
+  }
+  
+  #info a {
+    color: #0bf;
+    transition: .2s;
+  }
+  
+  #info a:hover {
+    color: #6df;
+  }
+  </style>
+  <div id="info">相關參考：<a id="infoLink" href="https://www.oxxostudio.tw/articles/201506/html5-device-orientation.html" target="_blank">HTML5 控制裝置陀螺儀 ( 三軸 ) </a></div>
+  <script>
+  var href = location.href;
+  var page = href.split("demo/");
+  var name = page[1].split("-demo")[0];
+  var title = document.querySelector('title').innerHTML;
+  document.getElementById('infoLink').setAttribute('href', '/articles/' + name + '.html');
+  document.getElementById('infoLink').innerHTML = title.split("demo")[0];
+  </script>
+
+</body>
+</html>
