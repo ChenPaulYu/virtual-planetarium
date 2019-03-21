@@ -158,18 +158,34 @@ const collection = database.ref('textcollection');
     //     planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     // },3000)
     var lastTime = new Date();
+    var count = -1
+    var use = false;
     const latest = database.ref('textcollection/latest');
     latest.on('value', function (snapshot) {
         var newTime = new Date();
         var data = snapshot.val().gesture
-        console.log(newTime - lastTime)
-        if(newTime-lastTime > 500) {
-            target = target + 1
-            planetarium.target = target
-            planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
-            lastTime = newTime
-
+        count++
+        console.log(count)
+        if(data == 'up') {
+            if(!use) {
+                console.log('up')
+            }
+            use = true
+        }else if(data == 'down') {
+           if (!use) {
+               console.log('down')
+           }
+            use = true
+        }else if(data == 'none') {
+            use = false
         }
+        // if(newTime-lastTime > 500) {
+        //     target = target + 1
+        //     planetarium.target = target
+        //     planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
+        //     lastTime = newTime
+
+        // }
         // console.log(newTime-lastTime)
         // console.log(data)
     });

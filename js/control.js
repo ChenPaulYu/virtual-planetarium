@@ -15,6 +15,9 @@ var values = {
     a: 0,
     lastP: 0,
     lastV: 0,
+    xA  : 0,
+    yA  : 0,
+    zA  : 0,
     xyzA: 0
 }
 
@@ -58,6 +61,9 @@ function main() {
     values.lastV = Math.round(values.v)
     values.lastA = values.a
     values.p = orientationData.beta
+    values.xA = motionData.x
+    values.yA = motionData.y
+    values.zA = motionData.z
     values.xyzA = Math.sqrt(Math.pow(motionData.x, 2) + Math.pow(motionData.y, 2) + Math.pow(motionData.z, 2));
     xyzA = Math.round(values.xyzA)
     values.v = values.p - values.lastP
@@ -65,6 +71,9 @@ function main() {
     $('#p').text(values.p)
     $('#v').text(values.v)
     $('#a').text(values.a)
+    $('#xA').text(values.xA)
+    $('#yA').text(values.yA)
+    $('#zA').text(values.zA)
     $('#xyzA').text(xyzA)
     if (values.v > 30) {
         $('#gesture').text('上')
