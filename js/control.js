@@ -75,6 +75,13 @@ function main() {
     $('#yA').text(values.yA)
     $('#zA').text(values.zA)
     $('#xyzA').text(xyzA)
+
+    if(values.xA > 5) {
+        $('#gesture').text('左')
+    }else if(values.xA < -5) {
+        $('#gesture').text('右')
+    }
+
     if (values.v > 30) {
         $('#gesture').text('上')
         database.ref('textcollection/latest').update({
@@ -85,12 +92,13 @@ function main() {
         database.ref('textcollection/latest').update({
             'gesture': 'down'
         });
-    } else {
-        $('#gesture').text('無')
-        database.ref('textcollection/latest').update({
-            'gesture': 'none'
-        });
-    }
+    } 
+    // else {
+    //     $('#gesture').text('無')
+    //     database.ref('textcollection/latest').update({
+    //         'gesture': 'none'
+    //     });
+    // }
 
 
 }
