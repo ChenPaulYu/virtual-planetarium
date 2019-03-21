@@ -86,7 +86,7 @@ function main() {
     $('#xyzA').text(xyzA)
 
     var use = false;
-    if (values.v > 20 && values.p > 50) {
+    if (values.v > 20 && values.p > 30) {
         if(!use) {
             $('#gesture').text('左')
             database.ref('textcollection/latest').update({
