@@ -105,13 +105,16 @@ function main() {
         'axyz': Math.round(Math.sqrt(Math.pow(motionData.x, 2) + Math.pow(motionData.y, 2) + Math.pow(motionData.z, 2)))
     });
 
+    database.ref('textcollection/latest').update({
+        'beta': orientationData.beta
+    });
+
     var use = false;
     if (values_alpha.v > 20 && values_alpha.p > 20) {
         if(!use) {
             $('#gesture').text('左')
             database.ref('textcollection/latest').update({
-                'gesture': 'left',
-                'beta'   :  orientationData.beta
+                'gesture': 'left'
             });
         }
 
@@ -120,8 +123,7 @@ function main() {
         if(!use) {
             $('#gesture').text('右')
             database.ref('textcollection/latest').update({
-                'gesture': 'right',
-                'beta': orientationData.beta
+                'gesture': 'right'
             });
         }
         use = true;
