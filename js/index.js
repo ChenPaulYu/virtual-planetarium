@@ -154,13 +154,14 @@ const collection = database.ref('textcollection');
 
 
     var lastTime = new Date();
+    var use = false;
     const latest = database.ref('textcollection/latest');
-
     latest.on('value', function (snapshot) {
         var newTime = new Date();
         var data = snapshot.val().gesture
         if (newTime - lastTime > 100) {
             if(data == 'right') {
+                if(!use) {
                     if (target > 0) {
                         target = target - 1
                         planetarium.target = target
@@ -169,17 +170,20 @@ const collection = database.ref('textcollection');
                     $('#gesture').text('right')
                     $('#target').text(target)
                     console.log('right')
+                }
                 use = true
             }else if(data == 'left') {
+                if (!use) {
                     if (target < 12) {
                         target = target + 1
                         planetarium.target = target
                         planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
                     }
-                console.log('left')
-                $('#gesture').text('left')
-                $('#target').text(target)
-                use = true
+                    console.log('left')
+                    $('#gesture').text('left')
+                    $('#target').text(target)
+                    use = true
+                }
             }else if(data == 'none') {
                 use = false
             }
