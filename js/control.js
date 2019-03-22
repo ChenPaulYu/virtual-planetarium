@@ -44,7 +44,7 @@ const collection = database.ref('textcollection');
 function orientation(event) {
     if (event.gamma) {
         var alpha;
-        
+
         if (event.alpha > 180) {
             alpha = -1 * (360 - event.alpha)
 
@@ -111,9 +111,7 @@ function main() {
             $('#gesture').text('左')
             database.ref('textcollection/latest').update({
                 'gesture': 'left',
-                'theta': values_alpha.v,
-                'p'    : values_alpha.p,
-                'lastP': values_alpha.lastP
+                'beta'   :  orientationData.beta
             });
         }
 
@@ -123,9 +121,7 @@ function main() {
             $('#gesture').text('右')
             database.ref('textcollection/latest').update({
                 'gesture': 'right',
-                'theta': values_alpha.v,
-                'p': values_alpha.p,
-                'lastP': values_alpha.lastP
+                'beta': orientationData.beta
             });
         }
         use = true;

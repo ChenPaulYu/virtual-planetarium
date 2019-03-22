@@ -193,6 +193,11 @@ const collection = database.ref('textcollection');
     });
 
 
+    const gryoscope = database.ref('textcollection/gryoscope');
+
+    
+
+
 
 
       // LeapMotion
