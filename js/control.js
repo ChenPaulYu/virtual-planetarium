@@ -82,8 +82,8 @@ function main() {
 
 
     values_alpha.xyzA = Math.round(Math.sqrt(Math.pow(motionData.x, 2) + Math.pow(motionData.y, 2) + Math.pow(motionData.z, 2)));
-    values_alpha.v = values.p - values.lastP
-    values_alpha.a = values.v - values.lastV
+    values_alpha.v = values_alpha.p - values_alpha.lastP
+    values_alpha.a = values_alpha.v - values_alpha.lastV
 
 
     $('#p').text(values_alpha.p)
@@ -105,7 +105,7 @@ function main() {
     });
 
     var use = false;
-    if (values.v > 20 && values.p > 20) {
+    if (values_alpha.v > 20 && values_alpha.p > 20) {
         if(!use) {
             $('#gesture').text('左')
             database.ref('textcollection/latest').update({
