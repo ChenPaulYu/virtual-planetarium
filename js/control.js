@@ -44,7 +44,8 @@ const collection = database.ref('textcollection');
 function orientation(event) {
     if (event.gamma) {
         var alpha;
-        if (orientationData.alpha > 180) {
+        
+        if (event.alpha > 180) {
             alpha = -1 * (360 - event.alpha)
 
         } else {
