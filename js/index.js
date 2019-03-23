@@ -122,7 +122,7 @@ firebase.initializeApp(config);
 const database = firebase.database();
 const collection = database.ref('textcollection');
 
-  S(document).ready(function () {
+S(document).ready(function () {
     var target = 0
     var ra = dec_ra[target].ra;
     var dec = dec_ra[target].dec;
@@ -159,11 +159,8 @@ const collection = database.ref('textcollection');
     }
 
 
-    var canvas = document.getElementById('starmap_inner'),
-    context = canvas.getContext('2d');
-
     $('#next').on('click',function(){
-        if(target < 11) {
+        if(target < 11) { 
             console.log(target)
             planetarium.toggleInfoBox(target, false)
             target = target + 1
@@ -286,98 +283,4 @@ const collection = database.ref('textcollection');
 
     });
 
-
-    const gryoscope = database.ref('textcollection/gryoscope');
-
-
-
-
-
-
-      // LeapMotion
-      var bounce = false;
-      var controller = Leap.loop({
-          enableGestures: true
-      }, function (frame) {
-          if (frame.gestures.length > 0) {
-              for (var i = 0; i < frame.gestures.length; i++) {
-                  var gesture = frame.gestures[i];
-                  // console.log(gesture.type);
-                  if (gesture.type == "swipe" && bounce == false) {
-                      console.log('swipe')
-                      bounce = true;
-                      //Classify swipe as either horizontal or vertical
-                      var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
-                      //Classify as right-left or up-down
-                      if (isHorizontal) {
-                          if (gesture.direction[0] > 0) {
-                              // right
-                              console.log('right')
-
-                              if (planetarium.target != 8) {
-                                  planetarium.target += 1
-                              }
-                          } else {
-                              // left
-                              console.log('left')
-                              if (planetarium.target != 0) {
-                                  planetarium.target -= 1
-                              }
-                              //    planetarium.panTo(83.6330833, 22.0145000, 1000)
-                          }
-                      } else { //vertical
-                          if (gesture.direction[1] > 0) {
-                              // up
-                              if (planetarium.target - 3 >= 0) {
-                                  planetarium.target -= 3
-                              }
-                              console.log('up')
-                              //    planetarium.panTo(229.6384167, 2.0810278, 1000)
-
-                          } else {
-                              // down
-                              if (planetarium.target + 3 <= 11) {
-                                  planetarium.target += 3;
-                              }
-                              console.log('down')
-                              //    planetarium.panTo(268.4625000, 2.0810278, 1000)
-                          }
-                      }
-                      // planetarium.fov = fov
-                      planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
-                      // setTimeout(function(){
-                      //     console.log(planetarium.target)
-                      // },500)
-
-
-                  } else if (gesture.type == 'circle') {
-                      var pointableID = gesture.pointableIds[0];
-                      var direction = frame.pointable(pointableID).direction;
-                      var dotProduct = Leap.vec3.dot(direction, gesture.normal);
-
-                      if (dotProduct > 0) {
-                          if (planetarium.fov > 35) {
-                              planetarium.fov -= 0.1
-                              planetarium.changeFOV(0).draw()
-                          }
-                      } else {
-                          if (planetarium.fov < 60) {
-                              planetarium.fov += 0.1
-                              planetarium.changeFOV(0).draw()
-                          }
-                      }
-                      console.log('circle')
-                      console.log(planetarium.fov)
-
-                  }
-              }
-
-          } else {
-              bounce = false
-          }
-
-      });
-
-
-
-  });
+});
