@@ -439,7 +439,7 @@ S(document).ready(function () {
                     planetarium.changeFOV(0).draw()
                 }
 
-            }, 5)
+            }, 10)
         } else if(planetarium.fov >= 50 && planetarium.fov < 60) {
             console.log('here')
             var refreshId = setInterval(function () {
@@ -454,7 +454,7 @@ S(document).ready(function () {
                     planetarium.changeFOV(0).draw()
                 }
 
-            }, 10)
+            }, 5)
         } else {
             synth.triggerAttackRelease("C5", "8n");
         }
