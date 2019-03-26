@@ -203,13 +203,13 @@ S(document).ready(function () {
                 }
             }
 
-            // for (var i = 0; i < meteor_l.length; i++) {
-            //     drawL(meteor_l[i])
-            //     if (meteor_l[i].x > w || meteor_l[i].y > h || meteor_l[i].x < 0 || meteor_l[i].y < 0) {
-            //         synth.triggerAttackRelease("C2", "4n");
-            //         meteor_l.splice(i, 1)
-            //     }
-            // }
+            for (var i = 0; i < meteor_l.length; i++) {
+                drawL(meteor_l[i])
+                if (meteor_l[i].x > w || meteor_l[i].y > h || meteor_l[i].x < 0 || meteor_l[i].y < 0) {
+                    synth.triggerAttackRelease("C2", "4n");
+                    meteor_l.splice(i, 1)
+                }
+            }
 
             for (let i = 0; i < meteorites.length; i++) {
                 meteorites[i].update();
@@ -236,7 +236,7 @@ S(document).ready(function () {
             
             count++
             if(count%2 == 0 ) {
-                // addstarL(1)
+                addstarL(1)
                 addM(5);
             }
         }, 1000);
@@ -383,7 +383,7 @@ S(document).ready(function () {
     })
 
     $('#zoomin').on('click', function () {
-        if (planetarium.fov > 35) {
+        if (planetarium.fov > 35 && planetarium.fov < 50) {
             planetarium.alpha = 0
             synth.triggerAttackRelease("C2", "2n");
             var refreshId = setInterval(function () {
@@ -399,6 +399,21 @@ S(document).ready(function () {
                 }
 
             }, 5)
+        } else if(planetarium.fov > 50) {
+            synth.triggerAttackRelease("C2", "2n");
+            var refreshId = setInterval(function () {
+                planetarium.animate = true;
+                use = true
+                if (planetarium.fov <= 50) {
+                    use = false
+                    planetarium.animate = false;
+                    clearInterval(refreshId);
+                } else {
+                    planetarium.fov -= 0.1
+                    planetarium.changeFOV(0).draw()
+                }
+
+            }, 10)
         } else {
             synth.triggerAttackRelease("C5", "8n");
         }
@@ -408,8 +423,25 @@ S(document).ready(function () {
 
     $('#zoomout').on('click', function () {
         synth.triggerAttackRelease("C2", "2n");
-        if (planetarium.fov < 60) {
+        if (planetarium.fov < 50 && planetarium.fov >= 35) {
             use = true
+            var refreshId = setInterval(function () {
+                if (planetarium.fov >= 50) {
+                    planetarium.fov = 50
+                    planetarium.animate = false;
+                    use = false
+                    clearInterval(refreshId);
+
+                } else {
+                    planetarium.animate = true;
+                    planetarium.toggleInfoBox(target, false)
+                    planetarium.fov += 0.1
+                    planetarium.changeFOV(0).draw()
+                }
+
+            }, 5)
+        } else if(planetarium.fov >= 50 && planetarium.fov < 60) {
+            console.log('here')
             var refreshId = setInterval(function () {
                 if (planetarium.fov >= 60) {
                     planetarium.animate = false;
@@ -422,7 +454,7 @@ S(document).ready(function () {
                     planetarium.changeFOV(0).draw()
                 }
 
-            }, 5)
+            }, 10)
         } else {
             synth.triggerAttackRelease("C5", "8n");
         }
@@ -478,7 +510,7 @@ S(document).ready(function () {
                 $('#target').text(target)
 
             } else if (data == 'front' && !use) {
-                if (planetarium.fov > 35) {
+                if (planetarium.fov > 35 && planetarium.fov < 50) {
                     planetarium.alpha = 0
                     synth.triggerAttackRelease("C2", "2n");
                     var refreshId = setInterval(function () {
@@ -488,12 +520,27 @@ S(document).ready(function () {
                             use = false
                             planetarium.animate = false;
                             clearInterval(refreshId);
-                        }else {
+                        } else {
                             planetarium.fov -= 0.1
                             planetarium.changeFOV(0).draw()
                         }
 
                     }, 5)
+                } else if (planetarium.fov > 50) {
+                    synth.triggerAttackRelease("C2", "2n");
+                    var refreshId = setInterval(function () {
+                        planetarium.animate = true;
+                        use = true
+                        if (planetarium.fov <= 50) {
+                            use = false
+                            planetarium.animate = false;
+                            clearInterval(refreshId);
+                        } else {
+                            planetarium.fov -= 0.1
+                            planetarium.changeFOV(0).draw()
+                        }
+
+                    }, 10)
                 } else {
                     synth.triggerAttackRelease("C5", "8n");
                 }
@@ -501,14 +548,16 @@ S(document).ready(function () {
                 $('#target').text(target)
             } else if (data == 'back' && !use) {
                 synth.triggerAttackRelease("C2", "2n");
-                if (planetarium.fov < 60) {
+                if (planetarium.fov < 50 && planetarium.fov >= 35) {
                     use = true
                     var refreshId = setInterval(function () {
-                        if (planetarium.fov >= 60) {
+                        if (planetarium.fov >= 50) {
+                            planetarium.fov = 50
                             planetarium.animate = false;
                             use = false
                             clearInterval(refreshId);
-                        }else {
+
+                        } else {
                             planetarium.animate = true;
                             planetarium.toggleInfoBox(target, false)
                             planetarium.fov += 0.1
@@ -516,6 +565,21 @@ S(document).ready(function () {
                         }
 
                     }, 5)
+                } else if (planetarium.fov >= 50 && planetarium.fov < 60) {
+                    console.log('here')
+                    var refreshId = setInterval(function () {
+                        if (planetarium.fov >= 60) {
+                            planetarium.animate = false;
+                            use = false
+                            clearInterval(refreshId);
+                        } else {
+                            planetarium.animate = true;
+                            planetarium.toggleInfoBox(target, false)
+                            planetarium.fov += 0.1
+                            planetarium.changeFOV(0).draw()
+                        }
+
+                    }, 10)
                 } else {
                     synth.triggerAttackRelease("C5", "8n");
                 }
