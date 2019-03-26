@@ -154,7 +154,7 @@ const collection = database.ref('textcollection');
 
 S(document).ready(function () {
     
-    var target = 11
+    var target = 0
     var ra = dec_ra[target].ra;
     var dec = dec_ra[target].dec;
     var fov = 60;
@@ -189,10 +189,6 @@ S(document).ready(function () {
         });
     }
 
-    var canv = document.createElement('canvas');
-    canv.id = 'buffer';
-    document.getElementById('starmap_inner').appendChild(canv);
-
         
     setInterval(() => {
 
@@ -207,19 +203,19 @@ S(document).ready(function () {
                 }
             }
 
-            for (var i = 0; i < meteor_l.length; i++) {
-                drawL(meteor_l[i])
-                if (meteor_l[i].x > w || meteor_l[i].y > h || meteor_l[i].x < 0 || meteor_l[i].y < 0) {
-                    // synth.triggerAttackRelease("C2", "4n");
-                    meteor_l.splice(i, 1)
-                }
-            }
+            // for (var i = 0; i < meteor_l.length; i++) {
+            //     drawL(meteor_l[i])
+            //     if (meteor_l[i].x > w || meteor_l[i].y > h || meteor_l[i].x < 0 || meteor_l[i].y < 0) {
+            //         synth.triggerAttackRelease("C2", "4n");
+            //         meteor_l.splice(i, 1)
+            //     }
+            // }
 
             for (let i = 0; i < meteorites.length; i++) {
                 meteorites[i].update();
                 if (meteorites[i].x > w || meteorites[i].y > h || meteorites[i].x < 0 || meteorites[i].y < 0) {
                     meteorites.splice(i, 1)
-                    synth.triggerAttackRelease("C2", "4n");
+                    synth.triggerAttackRelease("C5", "4n");
                 }
             }
             
@@ -271,8 +267,8 @@ S(document).ready(function () {
                 var star = {
                     x: Math.random() * w,
                     y: Math.random() * h,
-                    vx: -1 + Math.random() * 2,
-                    vy: -3 + Math.random() * 5,
+                    vx: (-1 + Math.random() * 2)/10,
+                    vy: (-1 + Math.random() * 2)/10,
                     m: Math.random() * 2
                 }
                 meteor_c.push(star)
@@ -284,16 +280,16 @@ S(document).ready(function () {
             var ctx = c.getContext("2d");
             ctx.beginPath();
             ctx.arc(star.x, star.y, star.m, 0, 2 * Math.PI);
-            star.vy += 0.01
+            
             if(star.vx > 0 ) {
-                star.vx += 0.01
+                star.vx += 0.00001
             }else {
-                star.vx -= 0.01
+                star.vx -= 0.00001
             }
             if (star.vy > 0) {
-                star.vy += 0.01
+                star.vy += 0.00001
             } else {
-                star.vy -= 0.01
+                star.vy -= 0.00001
             }
 
             star.x += star.vx
