@@ -210,7 +210,7 @@ S(document).ready(function () {
             for (var i = 0; i < meteor_l.length; i++) {
                 drawL(meteor_l[i])
                 if (meteor_l[i].x > w || meteor_l[i].y > h || meteor_l[i].x < 0 || meteor_l[i].y < 0) {
-                    synth.triggerAttackRelease("C2", "4n");
+                    // synth.triggerAttackRelease("C2", "4n");
                     meteor_l.splice(i, 1)
                 }
             }
@@ -219,6 +219,7 @@ S(document).ready(function () {
                 meteorites[i].update();
                 if (meteorites[i].x > w || meteorites[i].y > h || meteorites[i].x < 0 || meteorites[i].y < 0) {
                     meteorites.splice(i, 1)
+                    synth.triggerAttackRelease("C2", "4n");
                 }
             }
             
