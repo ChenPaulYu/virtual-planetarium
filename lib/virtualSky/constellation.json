@@ -84,15 +84,15 @@
         },{
             "name": "Her",
             "number": 45,
-            "offsetx": 570,
-            "offsety": 0,
+            "offsetx": 1130,
+            "offsety": 60,
             "height": 600,
             "width": 600,
             "picture": "EKBlLYU.png"
         },{
             "name": "Cyg",
             "number": 45,
-            "offsetx": 640,
+            "offsetx": 1200,
             "offsety": 50,
             "height": 500,
             "width": 500,
