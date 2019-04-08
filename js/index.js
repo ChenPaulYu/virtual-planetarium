@@ -58,12 +58,12 @@ var dec_ra = [{
     "ra": 160.9905542,
     "dec": 55.0190889,
     "width": 263,
-    "height": 761.33,
+    "height": 622.7,
     "offsetX": -35,
     "offsetY": 10,
     "scaleX": 0,
     "scaleY": 0,
-    "intro": "z1BY63E.png"
+    "intro": "ihXTbkx.png"
 }, {
     "name": "Boo",
     "ra": 206.6231708,
@@ -80,12 +80,12 @@ var dec_ra = [{
     "ra": 294.9987917,
     "dec": 35.8651694,
     "width": 263,
-    "height": 764.33,
+    "height": 377.6,
     "offsetX": -8,
     "offsetY": 5,
     "scaleX": 1,
     "scaleY": 0,
-    "intro": "PypCwTG.png"
+    "intro": "1ftAjTj.png"
 }, {
     "name": "Tau",
     "ra": 65.3146,
@@ -102,12 +102,12 @@ var dec_ra = [{
     "ra": 244.2877083,
     "dec": 80,
     "width": 263,
-    "height": 761.33,
+    "height": 622.7,
     "offsetX": 100,
     "offsetY": 6,
     "scaleX": 1,
     "scaleY": 0,
-    "intro": "z1BY63E.png"
+    "intro": "Yxdlpvu.png"
 }, {
     "name": "Her",
     "ra": 255.3025000,
@@ -280,7 +280,7 @@ function addConstellationsPointers(planetarium) {
             'ra': dec_ra[i].ra + dec_ra[i].offsetX,
             'dec': dec_ra[i].dec + dec_ra[i].offsetY,
             'label': dec_ra[i].name,
-            'img': "https://i.imgur.com/" + dec_ra[i].intro,
+            'img': "./image/" + dec_ra[i].intro,
             'height': dec_ra[i].height,
             'width': dec_ra[i].width,
             'scaleX': dec_ra[i].scaleX,
@@ -291,7 +291,7 @@ function addConstellationsPointers(planetarium) {
 }
 
 function createPlanetarium() {
-    return planetarium = S.virtualsky({
+    var planetarium = S.virtualsky({
         'id': 'starmap',
         'projection': 'gnomic',
         'ra': ra,
@@ -308,6 +308,8 @@ function createPlanetarium() {
         'mouse': false,
         'fullscreen': true
     });
+    addConstellationsPointers(planetarium)
+    return planetarium
 }
 
 function addMeteor(ctx, r, count, color) {
@@ -403,7 +405,7 @@ S(document).ready(function () {
     var w = document.body.offsetWidth;
     var h = document.body.offsetHeight;
     var ctx = canvas.getContext("2d");
-    addConstellationsPointers(planetarium)
+    
     
 
     setInterval(() => {
@@ -437,7 +439,7 @@ S(document).ready(function () {
         console.log(e.which)
         switch (e.which) {
             case 13:
-                console.log('pray')
+                addMeteor(ctx, 0, Math.random() * 3, 'rgba(255,255,255,0.6)');
                 break;
             case 32:
                 planetarium.toggleFullScreen()
