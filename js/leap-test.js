@@ -93,8 +93,27 @@ function onFrame(frame) {
         })
     }
 }
+$(document).ready(function () {
 
+    $('#guide').on('click', function () {
+        updataData(database, 'guide', {
+            'guide': true
+        })
+        setTimeout(() => {
+            updataData(database, 'guide', {
+                'guide': false
+            })
+        }, 100);
 
+    })
+})
+
+// $('#guide').on('click', function () {
+//     console.log('123')
+//     updataData(database, 'guide', true)
+//     // updataData(database, 'guide', false)
+
+// })
 
 
 function updataData(database,table,data) {

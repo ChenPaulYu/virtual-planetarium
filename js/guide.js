@@ -1,23 +1,23 @@
 //const anime = require('lib/anime.js');
 //alert("?");
 
-var guideImage = ['KwL8Vdb.png', 'KzMmlOs.png', 'lPU2n6j.png', 'sc6M218.png', 'MUMxg2x.png', 'uTu6XIq.png']
+var guideImage = ['KwL8Vdb.png', 'KzMmlOs.png', 'lPU2n6j.png', 'sc6M218.png', 'uTu6XIq.png']
 
 var animation = null;
 var animation2 = null;
 var drop = {
-		targets: "#move",
-		translateY: [-1000, 0],
-		duration: 1000,
-		easing: 'easeOutElastic(1, 0.45)'
-	};
+	targets: "#move",
+	translateY: [-1000, 0],
+	duration: 1000,
+	easing: 'easeOutElastic(1, 0.45)'
+};
 var up = {
-		targets: "#move",
-		translateY: [0, -1000],
-		duration: 800,
-		easing: 'easeInElastic(1, 1)',
-		endDelay: 300
-	};
+	targets: "#move",
+	translateY: [0, -2000],
+	duration: 800,
+	easing: 'easeInElastic(1, 1)',
+	endDelay: 300
+};
 var state = 0;
 var timeout = null;
 var start = false;
@@ -26,11 +26,10 @@ $(window).bind("load", function() {
 
 	animation = anime({
 	  targets: "#move",	
-	  rotateZ: [-5, 5],
-	  duration: 500,
-	  easing: 'easeInQuad',
-	  loop: 4,
-	  direction: 'alternate',
+	  rotateZ: [-360, 360],
+	  duration: 200000,
+	  easing: 'linear',
+	  loop: true,
 	  autoplay: false
 	})
 
@@ -58,10 +57,12 @@ $(window).bind("load", function() {
 function restartAnime() {
 	animation.restart();
 	start = true;
-	timeout = setTimeout(function() {
-		restartAnime();
-	}, 3000);
+	// timeout = setTimeout(function() {
+	// 	restartAnime();
+	// }, 3000);
 }
+
+
 
 function upAndDrop() {
 	start = false;
@@ -71,8 +72,8 @@ function upAndDrop() {
 	
 }
 
-function reset() {
-	state = 0;
+function setState(i) {
+	state = i;
 }
 
 
@@ -81,15 +82,18 @@ function checkstate() {
 }
 
 
+function starAnimate() {
+	animation = animation2
+}
+
+
 
 function stopAnime(s) {
 
 	console.log("state:" + state);
-
 	if (state == s && start) {
-		
 		clearTimeout(timeout);
-		if (state <= guideImage.length) {
+		if (state < guideImage.length) {
 			state++;
 			// animation = animation2;
 			upAndDrop();
@@ -108,8 +112,16 @@ function stopAnime(s) {
 			}, 2100);
 
 		} else {
+			console.log('123')
 			state++;
 			anime(up);
+			setTimeout(() => {
+				$("#move").attr("src", ``);
+				animation = null
+				// $("#move").remove();
+			}, 1000);
+			
+			
 
 		}
 	}

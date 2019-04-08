@@ -143,8 +143,25 @@ var config = {
 firebase.initializeApp(config);
 const database = firebase.database();
 const latest = database.ref('leapmotion/latest');
+const guide = database.ref('leapmotion/guide');
+
 
 const synth = new Tone.MembraneSynth().toMaster();
+const player = new Tone.Player({
+    "url": "./music/Newsky.m4a",
+    "autostart": true,
+    'loop': true
+}).toMaster();
+
+const sound = new Tone.Player("./music/bubbles.wav").toMaster();
+const water = new Tone.Player("./music/water.wav").toMaster();
+const earthquake = new Tone.Player("./music/earthquake.wav").toMaster();
+const nautic = new Tone.Player("./music/nautic.wav").toMaster();
+
+sound.setLoopPoints(0, 0.4);
+water.setLoopPoints(0, 0.3);
+earthquake.setLoopPoints(0,1)
+nautic.setLoopPoints(0, 0.5)
 
 var meteor_c = []; 
 var meteor_l = [];
@@ -153,17 +170,18 @@ var stars = []
 var target = 7
 var ra = dec_ra[target].ra;
 var dec = dec_ra[target].dec;
-var fov = 35;
+var fov = 60;
 var lastTime = new Date();
 var use = false;
 var pray = false
 var praytime = 0;
+var start = false;
 
 
 function right(planetarium) {
     if (target > 0 && !planetarium.animate) {
         planetarium.toggleInfoBox(target, false)
-        synth.triggerAttackRelease("C2", "8n");
+        // synth.triggerAttackRelease("C2", "8n");
         target = target - 1
         planetarium.target = target
         if (planetarium.fov == 35) {
@@ -171,14 +189,14 @@ function right(planetarium) {
         }
         planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     } else {
-        synth.triggerAttackRelease("C5", "8n");
+        // synth.triggerAttackRelease("C5", "8n");
     }
     $('#target').text(target)
 }
 function left(planetarium) {
     if (target < 11 && !planetarium.animate) {
         planetarium.toggleInfoBox(target, false)
-        synth.triggerAttackRelease("C2", "2n");
+        // synth.triggerAttackRelease("C2", "2n");
         target = target + 1
         planetarium.target = target
         if (planetarium.fov == 35) {
@@ -186,7 +204,7 @@ function left(planetarium) {
         }
         planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     } else {
-        synth.triggerAttackRelease("C5", "8n");
+        // synth.triggerAttackRelease("C5", "8n");
     }
     console.log('left')
     $('#target').text(target)
@@ -212,7 +230,7 @@ function zoomin(planetarium) {
             }, 5)
         } else if (planetarium.fov > 50) {
             console.log('2')
-            synth.triggerAttackRelease("C2", "2n");
+            // synth.triggerAttackRelease("C2", "2n");
             var refreshId = setInterval(function () {
                 planetarium.animate = true;
                 use = true
@@ -226,7 +244,7 @@ function zoomin(planetarium) {
                 }
             }, 10)
         } else {
-            synth.triggerAttackRelease("C5", "8n");
+            // synth.triggerAttackRelease("C5", "8n");
         }
     }
 }
@@ -264,7 +282,7 @@ function zoomout(planetarium) {
 
             }, 5)
         } else {
-            synth.triggerAttackRelease("C5", "8n");
+            // synth.triggerAttackRelease("C5", "8n");
         }
     }
 }
@@ -385,8 +403,15 @@ function drawAll(ctx,w,h) {
             for (let i = 0; i < meteorites.length; i++) {
                 meteorites[i].update();
                 if (meteorites[i].x > w || meteorites[i].y > h || meteorites[i].x < 0 || meteorites[i].y < 0) {
+
+                    if (meteorites[i].radius > 3) {
+                        water.start()
+                    }else {
+                        sound.start()
+                    }
                     meteorites.splice(i, 1)
-                    synth.triggerAttackRelease("C5", "4n");
+                    
+                    // synth.triggerAttackRelease("C5", "4n");
                 }
             }
             
@@ -398,7 +423,6 @@ function drawAll(ctx,w,h) {
 
 
 $(document).ready(function () {
-
 
     var planetarium = createPlanetarium()
     var canvas = document.getElementById("starmap_inner");
@@ -427,7 +451,7 @@ $(document).ready(function () {
             addMovingStar(w,h,5)
         }
         if(count%2 == 0 ) {
-            // addMeteor(ctx, 0, Math.random() * 3, 'rgba(255,255,255,0.6)');
+            addMeteor(ctx, 0, Math.round(Math.random() * 1), 'rgba(255,255,255,0.6)');
         }
 
 
@@ -439,40 +463,50 @@ $(document).ready(function () {
         console.log(e.which)
         switch (e.which) {
             case 13: 
-                planetarium.stop()
+                planetarium.stopAnim(5)
                 addMeteor(ctx, 0, Math.random() * 3, 'rgba(255,255,255,0.6)');
                 break;
-            case 16:
-                planetarium.guide()
             case 32:
-                planetarium.stopAnim(0)
-                // planetarium.toggleFullScreen()
+                planetarium.toggleFullScreen()
                 break;
             case 37:
+                nautic.start()
                 planetarium.stopAnim(1)
-                // left(planetarium)
+                left(planetarium)
                 break;
             case 38:
+                earthquake.start()
                 planetarium.stopAnim(3)
-                // zoomin(planetarium)
+                zoomin(planetarium)
                 break;
             case 39:
+                nautic.start()
                 planetarium.stopAnim(2)
-                // right(planetarium)
+                right(planetarium)
                 break;
             case 40:
+                earthquake.start()
                 planetarium.stopAnim(4)
-                // zoomout(planetarium)
+                zoomout(planetarium)
                 break;
 
         }
     });
 
 
+    guide.on('value',function (snapshot) {
+        var data = snapshot.val().guide
+        if(data) {
+            planetarium.restart()
+        }
+    })
+
     latest.on('value', function (snapshot) {
+
 
         var newTime = new Date();
         var data = snapshot.val().gesture
+
         if (newTime - lastTime > 500) {
             
             if (data == 'right') {
@@ -496,6 +530,8 @@ $(document).ready(function () {
 
 
 });
+
+
 
 
 class Star {
