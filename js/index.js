@@ -280,7 +280,7 @@ function addConstellationsPointers(planetarium) {
             'ra': dec_ra[i].ra + dec_ra[i].offsetX,
             'dec': dec_ra[i].dec + dec_ra[i].offsetY,
             'label': dec_ra[i].name,
-            'img': "./image/" + dec_ra[i].intro,
+            'img': "./image/intro/" + dec_ra[i].intro,
             'height': dec_ra[i].height,
             'width': dec_ra[i].width,
             'scaleX': dec_ra[i].scaleX,
@@ -397,8 +397,8 @@ function drawAll(ctx,w,h) {
 
 
 
-S(document).ready(function () {
-    
+$(document).ready(function () {
+
 
     var planetarium = createPlanetarium()
     var canvas = document.getElementById("starmap_inner");
@@ -406,7 +406,7 @@ S(document).ready(function () {
     var h = document.body.offsetHeight;
     var ctx = canvas.getContext("2d");
     
-    
+    planetarium.guide()
 
     setInterval(() => {
 
@@ -438,23 +438,31 @@ S(document).ready(function () {
     $("body").keydown(function (e) {
         console.log(e.which)
         switch (e.which) {
-            case 13:
+            case 13: 
+                planetarium.stop()
                 addMeteor(ctx, 0, Math.random() * 3, 'rgba(255,255,255,0.6)');
                 break;
+            case 16:
+                planetarium.guide()
             case 32:
-                planetarium.toggleFullScreen()
+                planetarium.stopAnim(0)
+                // planetarium.toggleFullScreen()
                 break;
             case 37:
-                left(planetarium)
+                planetarium.stopAnim(1)
+                // left(planetarium)
                 break;
             case 38:
-                zoomin(planetarium)
+                planetarium.stopAnim(3)
+                // zoomin(planetarium)
                 break;
             case 39:
-                right(planetarium)
+                planetarium.stopAnim(2)
+                // right(planetarium)
                 break;
             case 40:
-                zoomout(planetarium)
+                planetarium.stopAnim(4)
+                // zoomout(planetarium)
                 break;
 
         }
