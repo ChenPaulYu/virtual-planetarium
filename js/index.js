@@ -459,6 +459,7 @@ $(document).ready(function () {
     }, 1000);
 
 
+
     $("body").keydown(function (e) {
         console.log(e.which)
         switch (e.which) {
@@ -492,6 +493,7 @@ $(document).ready(function () {
 
         }
     });
+
 
 
     guide.on('value',function (snapshot) {
