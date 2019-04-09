@@ -1,18 +1,18 @@
 //const anime = require('lib/anime.js');
 //alert("?");
 
-var guideImage = ['KwL8Vdb.png', 'KzMmlOs.png', 'lPU2n6j.png', 'sc6M218.png', 'uTu6XIq.png']
+var guideImage = ['eQjYlhI.png', 'fEpAzuJ.png', 'waJWQUP.png', 'GhNDkt7.png', 'Z174U9W.png', 'OmQOQMe.png', 'jzdDjq2.png', 'mjcNEtH.png', 'MW1Hq7U.png', 'auMBnbx.png']
 
 var animation = null;
 var animation2 = null;
 var drop = {
-	targets: "#move",
+	targets: ".guideAll",
 	translateY: [-1000, 0],
 	duration: 1000,
 	easing: 'easeOutElastic(1, 0.45)'
 };
 var up = {
-	targets: "#move",
+	targets: ".guideAll",
 	translateY: [0, -2000],
 	duration: 800,
 	easing: 'easeInElastic(1, 1)',
@@ -26,26 +26,17 @@ $(window).bind("load", function() {
 
 	animation = anime({
 	  targets: "#move",	
-	  rotateZ: [-360, 360],
+	  rotateZ: [0, 360],
 	  duration: 200000,
 	  easing: 'linear',
+	  direction: 'alternate',
 	  loop: true,
 	  autoplay: false
 	})
 
 
-	// animation2 = anime({
-	//   targets: "#move",
-	//   rotateZ: [-10, 10],
-	//   duration: 400,
-	//   easing: 'easeInCirc',
-	//   loop: 6,
-	//   direction: 'alternate',
-	//   autoplay: false
-	// })
 
 	anime(drop);
-	// $("#move").css("z-index", "5");
 
 	setTimeout(function() {
 		restartAnime();
@@ -82,13 +73,10 @@ function checkstate() {
 }
 
 
-function starAnimate() {
-	animation = animation2
-}
 
 
 
-function stopAnime(s) {
+function Anime(s) {
 
 	console.log("state:" + state);
 	if (state == s && start) {
@@ -99,27 +87,26 @@ function stopAnime(s) {
 			upAndDrop();
 
 			setTimeout(function() {
-				// var html = '<span id="shake" class="big_text">SHAKE</span></br>';
-				// html += '<span id="harder" class="big_text">HARDER</span></br>'
-				// html += '<span id="sound">to change timbre</span>';
 				$('#move').attr("style", "z-index:3");
-				$("#move").attr("src", `./image/guide/${guideImage[s]}`);
-
-				// var html = '<img id="move" src="./image/guide/KzMmlOs.png" />'
-				// $("#move").html(html);
+				$('#move').attr("src",'./image/guide/SPN9Zko.png')
+				$('#gestureguide').attr("style", "z-index:3");
+				$("#gestureguide").attr("src", `./image/guide/${guideImage[s]}`);
 			}, 800);
 			setTimeout(function() {
 				restartAnime();
-			}, 2100);
+			}, 1700);
 
 		} else {
-			console.log('123')
+			console.log('here')
+			console.log(state)
 			state++;
 			anime(up);
 			setTimeout(() => {
-				$("#move").attr("src", ``);
-				$('#move').attr("style","z-index:-3")
-				animation = null
+				$("#gestureguide").attr("src", "");
+				$('#move').attr("src", "")
+				$('#gestureguide').attr("style", "z-index:-3")
+				$('#move').attr("style", "z-index:-3")
+				// animation = null
 				// $("#move").remove();
 			}, 1000);
 			

@@ -13,8 +13,9 @@ var controller = new Leap.Controller();
 controller.setBackground(true); 
 controller.connect();
 controller.on('frame', onFrame);
-
-
+var newTime = new Date();
+var lastTime = new Date();
+var holdingTime = 0;
 
 function onFrame(frame) {
     
@@ -29,6 +30,7 @@ function onFrame(frame) {
         var v0 = Math.round(velocity[0])
         var v2 = Math.round(velocity[2])
 
+
         if(frame.hands.length == 2) {
             distance = Math.abs(frame.hands[0].palmPosition[0] - frame.hands[1].palmPosition[0])
         }else {
@@ -37,9 +39,8 @@ function onFrame(frame) {
 
         console.log(hand.grabStrength)
         
+        newTime = new Date();
         
-
-
         $('#position0').text(position[0])
         $('#position1').text(position[1])
         $('#position2').text(position[2])
@@ -47,51 +48,57 @@ function onFrame(frame) {
         $('#direction').text(direction)
         $('#normal').text(normal)
 
-        
-
-        if (position[0] < -30 && v0 < -500 && distance == 1000) {
-            $('#gesture').text('left')
-            updataData(database, 'latest', {
-                'gesture': 'left'
-            })
-        } else if (position[0] > 60 && v0 > 500 && distance == 1000) {
-            $('#gesture').text('right')
-            updataData(database, 'latest', {
-                'gesture': 'right'
-            })
-        } else if (position[2] < -20 && v2 < -700 && distance == 1000) {
-            $('#gesture').text('front')
-            updataData(database, 'latest', {
-                'gesture': 'front'
-            })
-        } else if (position[2] > 90 && v2 > 700 && distance == 1000) {
-            $('#gesture').text('back')
-            updataData(database, 'latest', {
-                'gesture': 'back'
-            })
-        } else if(distance < 60) {
+        if (distance < 60) {
+            holdingTime += newTime - lastTime;
             $('#gesture').text('pray')
             updataData(database, 'latest', {
-                'gesture': 'pray'
-            })
-        } else if(hand.grabStrength == 1) {
-            $('#gesture').text('grab')
-            updataData(database, 'latest', {
-                'gesture': 'grab'
+                'gesture': 'pray',
+                'time'   :  holdingTime
             })
         } else {
-            $('#gesture').text('None')
-            updataData(database, 'latest', {
-                'gesture': 'none'
-            })
+            holdingTime = 0
+            if (position[0] < -30 && v0 < -500 && distance == 1000) {
+                $('#gesture').text('left')
+                updataData(database, 'latest', {
+                    'gesture': 'left',
+                    'time': holdingTime
+                })
+            } else if (position[0] > 60 && v0 > 500 && distance == 1000) {
+                $('#gesture').text('right')
+                updataData(database, 'latest', {
+                    'gesture': 'right',
+                    'time': holdingTime
+                })
+            } else if (position[2] < -20 && v2 < -700 && distance == 1000) {
+                $('#gesture').text('front')
+                updataData(database, 'latest', {
+                    'gesture': 'front',
+                    'time': holdingTime
+                })
+            } else if (position[2] > 90 && v2 > 700 && distance == 1000) {
+                $('#gesture').text('back')
+                updataData(database, 'latest', {
+                    'gesture': 'back',
+                    'time': holdingTime
+                })
+            } else {
+                $('#gesture').text('none')
+                updataData(database, 'latest', {
+                    'gesture': 'none',
+                    'time': holdingTime
+                })
+            }
         }
-
     } else {
-        $('#gesture').text('None')
+        holdingTime = 0
+        $('#gesture').text('null')
         updataData(database, 'latest', {
-            'gesture': 'none'
+            'gesture': 'null',
+            'time': holdingTime
         })
     }
+
+    lastTime = newTime
 }
 $(document).ready(function () {
 
@@ -108,12 +115,6 @@ $(document).ready(function () {
     })
 })
 
-// $('#guide').on('click', function () {
-//     console.log('123')
-//     updataData(database, 'guide', true)
-//     // updataData(database, 'guide', false)
-
-// })
 
 
 function updataData(database,table,data) {

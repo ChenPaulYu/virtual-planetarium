@@ -69,7 +69,20 @@ body {
     z-index: 3;
 } */
 
-#move{
+
+#gestureguide{
+    filter: invert(25%);
+    position: absolute;
+    width: 30%;
+    height: auto;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 5%;
+}
+#move {
     filter: invert(100%);
     position: absolute;
     width: 30%;

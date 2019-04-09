@@ -173,12 +173,17 @@ var dec = dec_ra[target].dec;
 var fov = 60;
 var lastTime = new Date();
 var use = false;
-var pray = false
 var praytime = 0;
-var start = false;
-
+var guiding = false;
 
 function right(planetarium) {
+    if (guiding) {
+        if (checkstate() == 4) {
+            planetarium.Anime(4)
+        } else {
+            return
+        }
+    }
     if (target > 0 && !planetarium.animate) {
         planetarium.toggleInfoBox(target, false)
         bass.start()
@@ -193,6 +198,14 @@ function right(planetarium) {
     }
 }
 function left(planetarium) {
+    if(guiding) {
+        if (checkstate() == 3) {
+            planetarium.Anime(3)
+        } else {
+            return
+        }
+    }
+
     if (target < 11 && !planetarium.animate) {
         planetarium.toggleInfoBox(target, false)
         bass.start()
@@ -209,6 +222,15 @@ function left(planetarium) {
 }
 
 function zoomin(planetarium) {
+    if (guiding) {
+        if (checkstate() == 5) {
+            planetarium.Anime(5)
+        } else if(checkstate() == 6) {
+            planetarium.Anime(6)
+        } else {
+            return
+        }
+    }
     if(!planetarium.animate) {
         if (planetarium.fov > 35 && planetarium.fov < 50) {
             planetarium.alpha = 0
@@ -227,7 +249,6 @@ function zoomin(planetarium) {
 
             }, 5)
         } else if (planetarium.fov > 50) {
-            console.log('2')
             earthquake.start()
             var refreshId = setInterval(function () {
                 planetarium.animate = true;
@@ -248,6 +269,15 @@ function zoomin(planetarium) {
 }
 
 function zoomout(planetarium) {
+    if (guiding) {
+        if (checkstate() == 7) {
+            planetarium.Anime(7)
+        } else if (checkstate() == 8) {
+            planetarium.Anime(8)
+        } else {
+            return
+        }
+    }
     if(!planetarium.animate) {
         if (Math.round(planetarium.fov) < 50 && Math.round(planetarium.fov) >= 35) {
             use = true
@@ -265,7 +295,7 @@ function zoomout(planetarium) {
                 }
             }, 10)
         } else if (Math.round(planetarium.fov) >= 50 && Math.round(planetarium.fov) < 60) {
-            console.log('2')
+
             var refreshId = setInterval(function () {
                 if (planetarium.fov >= 60) {
                     planetarium.animate = false;
@@ -286,7 +316,37 @@ function zoomout(planetarium) {
 }
 
 
+function pray(planetarium, ctx, praytime) {
+    if(praytime == 0) {
+        var count = Math.round(Math.random() * 10)
+    }else {
+        var count = praytime / 500
+    }
+    if (guiding) {
+        if (checkstate() == 9) {
+            planetarium.Anime(9)
+            setTimeout(() => {
+                planetarium.Anime(10)
+                guiding = false
+            }, 3000);
+        } else {
+            return
+        }
+    }
+    console.log(count)
+    addMeteor(ctx, 3, count, 'rgba(255,255,255,0.6)', 0, Math.random()*20 + 10);
+}
 
+
+function detectHand(planetarium) {
+    if (guiding) {
+        if (checkstate() == 2) {
+            planetarium.Anime(2)
+        } else {
+            return
+        }
+    }
+}
 function addConstellationsPointers(planetarium) {
     for (var i in dec_ra) {
         planetarium.addPointer({
@@ -325,7 +385,7 @@ function createPlanetarium() {
     return planetarium
 }
 
-function addMeteor(ctx, r, count, color) {
+function addMeteor(ctx, r, count, color, speed) {
     
     for (let i = 0; i < count; i++) {
         if(r == 0 ) {
@@ -333,8 +393,13 @@ function addMeteor(ctx, r, count, color) {
         }else {
             var radius = Math.random() * r
         }
+        if(speed == 0) {
+            var speed = 5 + radius * 2
+        }else {
+            var speed = speed
+        }
         
-        var speed  = 5 + radius * 2
+        
         var trailLength = radius * 15
         
         const m = new Meteorite(ctx, radius, speed, trailLength, color)
@@ -399,11 +464,12 @@ function drawAll(ctx,w,h) {
                 meteorites[i].update();
                 if (meteorites[i].x > w || meteorites[i].y > h || meteorites[i].x < 0 || meteorites[i].y < 0) {
 
-                    if (meteorites[i].radius > 2) {
+                    if (meteorites[i].radius > 2.9) {
                         water.start()
                     }else {
                         sound.start()
                     }
+                    
                     meteorites.splice(i, 1)
                     
                     // synth.triggerAttackRelease("C5", "4n");
@@ -424,10 +490,19 @@ $(document).ready(function () {
     var w = document.body.offsetWidth;
     var h = document.body.offsetHeight;
     var ctx = canvas.getContext("2d");
+    var count = 0
     
     planetarium.guide()
+    addShiningStar(ctx, 300)
 
     setInterval(() => {
+
+        if (meteor_c.length < 50) {
+            addMovingStar(w, h, 5)
+        }
+        if (count % 200 == 0) {
+            addMeteor(ctx, 0, Math.round(Math.random() * 1), 'rgba(255,255,255,0.6)', 0);
+        }
 
         if (!planetarium.animate) {
             var width = $(document).width();
@@ -437,59 +512,37 @@ $(document).ready(function () {
             drawAll(ctx, width, height)
         }
 
+        count++
+
     }, 10);   
 
-    var count = 0
-    addShiningStar(ctx,300)
-    setInterval(() => {
-        if(meteor_c.length < 50) {
-            addMovingStar(w,h,5)
-        }
-        if(count%2 == 0 ) {
-            addMeteor(ctx, 0, Math.round(Math.random() * 1), 'rgba(255,255,255,0.6)');
-        }
 
-
-        count++
-    }, 1000);
 
 
 
     $("body").keydown(function (e) {
         console.log(e.which)
         switch (e.which) {
+
             case 13: 
-                if(start) {
-                    planetarium.stopAnim(5)
-                }
-                addMeteor(ctx, 0, Math.random() * 3, 'rgba(255,255,255,0.6)');
-                start = false;
+                pray(planetarium,ctx,0)
+                break;
+            case 16:
+                detectHand(planetarium)
                 break;
             case 32:
                 planetarium.toggleFullScreen()
                 break;
             case 37:
-                if (start) {
-                    planetarium.stopAnim(1)
-                }
                 left(planetarium)
                 break;
             case 38:
-                if (start) {
-                    planetarium.stopAnim(3)
-                }
                 zoomin(planetarium)
                 break;
             case 39:
-                if(start) {
-                    planetarium.stopAnim(2)
-                }
                 right(planetarium)
                 break;
             case 40:
-                if(start) {
-                    planetarium.stopAnim(4)
-                }
                 zoomout(planetarium)
                 break;
 
@@ -502,35 +555,42 @@ $(document).ready(function () {
         var data = snapshot.val().guide
         if(data) {
             planetarium.restart()
-            start = true;
+            guiding = true;
         }
     })
 
     latest.on('value', function (snapshot) {
-
-
         var newTime = new Date();
-        var data = snapshot.val().gesture
-
-        if (newTime - lastTime > 500) {
-            
-            if (data == 'right') {
-                right(planetarium)
-            } else if (data == 'left') {
-                left(planetarium)
-            } else if (data == 'front' && !use) {
-                zoomin(planetarium)
-            } else if (data == 'back' && !use) {
-                zoomout(planetarium)
-            }else if(data == 'pray') {
+        var gesture = snapshot.val().gesture
+        var holdingTime = snapshot.val().time
+        console.log(holdingTime)
+        if (holdingTime != 0) {
+            praytime = holdingTime
+        } else {
+            if (praytime != 0) {
                 console.log('pray')
-                addMeteor(ctx, 5, 1, 'rgba(255,255,255,0.6)');
+                pray(planetarium, ctx, praytime)
+                praytime = 0
             }
-            
+            if (newTime - lastTime > 500) {
+
+                if (gesture == 'right') {
+                    right(planetarium)
+                } else if (gesture == 'left') {
+                    left(planetarium)
+                } else if (gesture == 'front' && !use) {
+                    zoomin(planetarium)
+                } else if (gesture == 'back' && !use) {
+                    zoomout(planetarium)
+                } else if (gesture == 'none') {
+                    detectHand(planetarium)
+                }
+            }
 
             lastTime = newTime
         }
 
+        
     });
 
 
@@ -597,7 +657,7 @@ class Meteorite extends Star {
     constructor(context,radius,speed,trailLength,color) {
         super();
         this.context = context
-        this.y = 0
+        this.y = (this.y/5) * Math.random()
         this.originalPosition = {
             x: this.x,
             y: this.y
