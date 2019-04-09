@@ -77,13 +77,13 @@ var dec_ra = [{
     "intro": "aQUzTED.png"
 }, {
     "name": "Lyr",
-    "ra": 294.9987917,
+    "ra": 297.9987917,
     "dec": 35.8651694,
     "width": 263,
     "height": 377.6,
-    "offsetX": -8,
-    "offsetY": 5,
-    "scaleX": 1,
+    "offsetX": -21,
+    "offsetY": 4,
+    "scaleX": 0,
     "scaleY": 0,
     "intro": "1ftAjTj.png"
 }, {
@@ -175,6 +175,7 @@ var lastTime = new Date();
 var use = false;
 var praytime = 0;
 var guiding = false;
+var detect = false;
 
 function right(planetarium) {
     if (guiding) {
@@ -341,6 +342,7 @@ function pray(planetarium, ctx, praytime) {
 function detectHand(planetarium) {
     if (guiding) {
         if (checkstate() == 2) {
+            synth.triggerAttackRelease("C2", "8n");
             planetarium.Anime(2)
         } else {
             return
@@ -452,33 +454,28 @@ function drawMovingStar(ctx,star)
 }
 
 function drawAll(ctx,w,h) {
-            for(var i = 0;i< meteor_c.length;i++) {
-                drawMovingStar(ctx, meteor_c[i])
-                if (meteor_c[i].x > w || meteor_c[i].y > h || meteor_c[i].x < 0 || meteor_c[i].y < 0) {
-                    meteor_c.splice(i, 1)
-                }
-            }
+    for(var i = 0;i< meteor_c.length;i++) {
+        drawMovingStar(ctx, meteor_c[i])
+        if (meteor_c[i].x > w || meteor_c[i].y > h || meteor_c[i].x < 0 || meteor_c[i].y < 0) {
+                eteor_c.splice(i, 1)
+        }
+    }
 
-
-            for (let i = 0; i < meteorites.length; i++) {
-                meteorites[i].update();
-                if (meteorites[i].x > w || meteorites[i].y > h || meteorites[i].x < 0 || meteorites[i].y < 0) {
-
-                    if (meteorites[i].radius > 2.9) {
-                        water.start()
-                    }else {
-                        sound.start()
-                    }
-                    
-                    meteorites.splice(i, 1)
-                    
-                    // synth.triggerAttackRelease("C5", "4n");
-                }
-            }
+    for (let i = 0; i < meteorites.length; i++) {
+        meteorites[i].update();
+        if (meteorites[i].x > w || meteorites[i].y > h || meteorites[i].x < 0 || meteorites[i].y < 0) {
+            if (meteorites[i].radius > 2.9) {
+                water.start()
+            }else {
+                sound.start()
+            }       
+            meteorites.splice(i, 1)
+        }
+    }
             
-            for (let i = 0; i < stars.length; i++) {
-                stars[i].update();
-            }
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].update();
+    }
 }
 
 
@@ -493,16 +490,9 @@ $(document).ready(function () {
     var count = 0
     
     planetarium.guide()
-    addShiningStar(ctx, 300)
 
     setInterval(() => {
 
-        if (meteor_c.length < 50) {
-            addMovingStar(w, h, 5)
-        }
-        if (count % 200 == 0) {
-            addMeteor(ctx, 0, Math.round(Math.random() * 1), 'rgba(255,255,255,0.6)', 0);
-        }
 
         if (!planetarium.animate) {
             var width = $(document).width();
@@ -512,11 +502,19 @@ $(document).ready(function () {
             drawAll(ctx, width, height)
         }
 
-        count++
 
     }, 10);   
 
-
+    addShiningStar(ctx, 300)
+    setInterval(() => {
+        if (meteor_c.length < 50) {
+            addMovingStar(w, h, 5)
+        }
+        if (count % 2 == 0) {
+            addMeteor(ctx, 0, Math.round(Math.random() * 1), 'rgba(255,255,255,0.6)', 0);
+        }
+        count++
+    }, 1000);
 
 
 
