@@ -156,12 +156,12 @@ const player = new Tone.Player({
 const sound = new Tone.Player("./music/bubbles.wav").toMaster();
 const water = new Tone.Player("./music/water.wav").toMaster();
 const earthquake = new Tone.Player("./music/earthquake.wav").toMaster();
-const nautic = new Tone.Player("./music/nautic.wav").toMaster();
+const bass = new Tone.Player("./music/bass.wav").toMaster();
 
 sound.setLoopPoints(0, 0.4);
 water.setLoopPoints(0, 0.3);
 earthquake.setLoopPoints(0,1)
-nautic.setLoopPoints(0, 0.5)
+bass.setLoopPoints(0, 0.5)
 
 var meteor_c = []; 
 var meteor_l = [];
@@ -181,7 +181,7 @@ var start = false;
 function right(planetarium) {
     if (target > 0 && !planetarium.animate) {
         planetarium.toggleInfoBox(target, false)
-        // synth.triggerAttackRelease("C2", "8n");
+        bass.start()
         target = target - 1
         planetarium.target = target
         if (planetarium.fov == 35) {
@@ -191,12 +191,11 @@ function right(planetarium) {
     } else {
         // synth.triggerAttackRelease("C5", "8n");
     }
-    $('#target').text(target)
 }
 function left(planetarium) {
     if (target < 11 && !planetarium.animate) {
         planetarium.toggleInfoBox(target, false)
-        // synth.triggerAttackRelease("C2", "2n");
+        bass.start()
         target = target + 1
         planetarium.target = target
         if (planetarium.fov == 35) {
@@ -207,15 +206,14 @@ function left(planetarium) {
         // synth.triggerAttackRelease("C5", "8n");
     }
     console.log('left')
-    $('#target').text(target)
 }
 
 function zoomin(planetarium) {
     if(!planetarium.animate) {
         if (planetarium.fov > 35 && planetarium.fov < 50) {
             planetarium.alpha = 0
-            synth.triggerAttackRelease("C2", "2n");
-            var refreshId = setInterval(function () {
+            earthquake.start()
+             var refreshId = setInterval(function () {
                 planetarium.animate = true;
                 use = true
                 if (planetarium.fov <= 35) {
@@ -230,7 +228,7 @@ function zoomin(planetarium) {
             }, 5)
         } else if (planetarium.fov > 50) {
             console.log('2')
-            // synth.triggerAttackRelease("C2", "2n");
+            earthquake.start()
             var refreshId = setInterval(function () {
                 planetarium.animate = true;
                 use = true
@@ -288,9 +286,6 @@ function zoomout(planetarium) {
 }
 
 
-// function pray(planetarium) {
-    
-// }
 
 function addConstellationsPointers(planetarium) {
     for (var i in dec_ra) {
@@ -404,7 +399,7 @@ function drawAll(ctx,w,h) {
                 meteorites[i].update();
                 if (meteorites[i].x > w || meteorites[i].y > h || meteorites[i].x < 0 || meteorites[i].y < 0) {
 
-                    if (meteorites[i].radius > 3) {
+                    if (meteorites[i].radius > 2) {
                         water.start()
                     }else {
                         sound.start()
@@ -464,30 +459,37 @@ $(document).ready(function () {
         console.log(e.which)
         switch (e.which) {
             case 13: 
-                planetarium.stopAnim(5)
+                if(start) {
+                    planetarium.stopAnim(5)
+                }
                 addMeteor(ctx, 0, Math.random() * 3, 'rgba(255,255,255,0.6)');
+                start = false;
                 break;
             case 32:
                 planetarium.toggleFullScreen()
                 break;
             case 37:
-                nautic.start()
-                planetarium.stopAnim(1)
+                if (start) {
+                    planetarium.stopAnim(1)
+                }
                 left(planetarium)
                 break;
             case 38:
-                earthquake.start()
-                planetarium.stopAnim(3)
+                if (start) {
+                    planetarium.stopAnim(3)
+                }
                 zoomin(planetarium)
                 break;
             case 39:
-                nautic.start()
-                planetarium.stopAnim(2)
+                if(start) {
+                    planetarium.stopAnim(2)
+                }
                 right(planetarium)
                 break;
             case 40:
-                earthquake.start()
-                planetarium.stopAnim(4)
+                if(start) {
+                    planetarium.stopAnim(4)
+                }
                 zoomout(planetarium)
                 break;
 
@@ -500,6 +502,7 @@ $(document).ready(function () {
         var data = snapshot.val().guide
         if(data) {
             planetarium.restart()
+            start = true;
         }
     })
 
@@ -521,7 +524,7 @@ $(document).ready(function () {
                 zoomout(planetarium)
             }else if(data == 'pray') {
                 console.log('pray')
-                addMeteor(ctx, 0, 1, 'rgba(255,255,255,0.6)');
+                addMeteor(ctx, 5, 1, 'rgba(255,255,255,0.6)');
             }
             
 

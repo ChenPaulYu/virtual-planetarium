@@ -102,6 +102,7 @@ function stopAnime(s) {
 				// var html = '<span id="shake" class="big_text">SHAKE</span></br>';
 				// html += '<span id="harder" class="big_text">HARDER</span></br>'
 				// html += '<span id="sound">to change timbre</span>';
+				$('#move').attr("style", "z-index:3");
 				$("#move").attr("src", `./image/guide/${guideImage[s]}`);
 
 				// var html = '<img id="move" src="./image/guide/KzMmlOs.png" />'
@@ -117,6 +118,7 @@ function stopAnime(s) {
 			anime(up);
 			setTimeout(() => {
 				$("#move").attr("src", ``);
+				$('#move').attr("style","z-index:-3")
 				animation = null
 				// $("#move").remove();
 			}, 1000);
