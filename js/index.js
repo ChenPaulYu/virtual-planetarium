@@ -457,7 +457,7 @@ function drawAll(ctx,w,h) {
     for(var i = 0;i< meteor_c.length;i++) {
         drawMovingStar(ctx, meteor_c[i])
         if (meteor_c[i].x > w || meteor_c[i].y > h || meteor_c[i].x < 0 || meteor_c[i].y < 0) {
-                eteor_c.splice(i, 1)
+            meteor_c.splice(i, 1)
         }
     }
 
