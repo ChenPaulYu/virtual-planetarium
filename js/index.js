@@ -153,14 +153,14 @@ const player = new Tone.Player({
     'loop': true
 }).toMaster();
 
-const sound = new Tone.Player("./music/bubbles.wav").toMaster();
+const bubble = new Tone.Player("./music/bubbles.wav").toMaster();
 const water = new Tone.Player("./music/water.wav").toMaster();
 const earthquake = new Tone.Player("./music/earthquake.wav").toMaster();
 const bass = new Tone.Player("./music/bass.wav").toMaster();
 const dropsound = new Tone.Player("./music/drop.wav").toMaster();
 const howl = new Tone.Player("./music/howl.wav").toMaster();
 
-sound.setLoopPoints(0, 0.4);
+bubble.setLoopPoints(0, 0.4);
 water.setLoopPoints(0, 0.3);
 earthquake.setLoopPoints(0,1)
 bass.setLoopPoints(0, 0.5)
@@ -191,7 +191,7 @@ function right(planetarium) {
     }
     if (target > 0 && !planetarium.animate) {
         planetarium.toggleInfoBox(target, false)
-        bass.start()
+        soundplaying(bass)
         target = target - 1
         planetarium.target = target
         if (planetarium.fov == 35) {
@@ -199,7 +199,8 @@ function right(planetarium) {
         }
         planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     } else {
-        howl.start()
+        soundplaying(howl)
+       
     }
 }
 function left(planetarium) {
@@ -213,7 +214,7 @@ function left(planetarium) {
 
     if (target < 11 && !planetarium.animate) {
         planetarium.toggleInfoBox(target, false)
-        bass.start()
+        soundplaying(bass)
         target = target + 1
         planetarium.target = target
         if (planetarium.fov == 35) {
@@ -221,7 +222,7 @@ function left(planetarium) {
         }
         planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     } else {
-        howl.start()
+        soundplaying(howl)
     }
     console.log('left')
 }
@@ -241,7 +242,7 @@ function zoomin(planetarium) {
         console.log(planetarium.fov)
         if (planetarium.fov > 35 && planetarium.fov <= 50) {
             planetarium.alpha = 0
-            earthquake.start()
+            soundplaying(earthquake)        
             console.log(planetarium.fov)
              var refreshId = setInterval(function () {
                 planetarium.animate = true;
@@ -258,7 +259,8 @@ function zoomin(planetarium) {
 
             }, 5)
         } else if (planetarium.fov > 50) {
-            earthquake.start()
+            soundplaying(earthquake)
+            
             var refreshId = setInterval(function () {
                 planetarium.animate = true;
                 use = true
@@ -272,8 +274,14 @@ function zoomin(planetarium) {
                 }
             }, 10)
         } else {
-            howl.start()
+            soundplaying(howl)
         }
+    }
+}
+
+function soundplaying(sound) {
+    if(sound) {
+        sound.start()
     }
 }
 
@@ -319,7 +327,7 @@ function zoomout(planetarium) {
 
             }, 5)
         } else {
-            howl.start()
+            soundplaying(howl)
         }
 
         console.log(planetarium.fov)
@@ -478,9 +486,9 @@ function drawAll(ctx,w,h) {
         meteorites[i].update();
         if (meteorites[i].x > w || meteorites[i].y > h || meteorites[i].x < 0 || meteorites[i].y < 0) {
             if (meteorites[i].radius > 2.9) {
-                water.start()
+                soundplaying(water)
             }else {
-                sound.start()
+                soundplaying(bubble)
             }       
             meteorites.splice(i, 1)
         }

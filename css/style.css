@@ -20,6 +20,7 @@ body {
 #gestureguide, #move, #ufo{
     filter: invert(25%);
     position: absolute;
+    width: min-content;
     width: 50%;
     height: auto;
     margin: auto;
@@ -28,6 +29,7 @@ body {
     bottom: 0;
     left: 0;
     border-radius: 5%;
+    
 }
 #move {
     filter: invert(100%);
