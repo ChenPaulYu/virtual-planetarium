@@ -580,7 +580,7 @@ $(document).ready(function () {
                 pray(planetarium, ctx, praytime)
                 praytime = 0
             }
-            if (newTime - lastTime > 500) {
+            if (newTime - lastTime > 300) {
                 console.log(gesture)
                 if (gesture == 'right') {
                     right(planetarium)
