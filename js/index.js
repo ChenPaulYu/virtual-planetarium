@@ -577,7 +577,6 @@ $(document).ready(function () {
                 console.log('pray')
                 pray(planetarium, ctx, praytime)
                 praytime = 0
-                return
             }
             if (newTime - lastTime > 500) {
                 if (gesture == 'right') {
