@@ -552,7 +552,11 @@ $(document).ready(function () {
     guide.on('value',function (snapshot) {
         var data = snapshot.val().guide
         if(data) {
+            planetarium.fov = 60
+            planetarium.target = 7
+            planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
             planetarium.restart()
+            
             guiding = true;
         }
     })
@@ -572,7 +576,6 @@ $(document).ready(function () {
                 return
             }
             if (newTime - lastTime > 500) {
-
                 if (gesture == 'right') {
                     right(planetarium)
                 } else if (gesture == 'left') {
