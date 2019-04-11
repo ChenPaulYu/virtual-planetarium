@@ -56,7 +56,7 @@ function onFrame(frame) {
             })
         } else {
             holdingTime = 0
-            if (position[0] < -30 && v0 < -500 && distance == 1000) {
+            if (position[0] < -30 && v0 < -300 && distance == 1000) {
                 $('#gesture').text('left')
                 updataData(database, 'latest', {
                     'gesture': 'left',
@@ -68,13 +68,13 @@ function onFrame(frame) {
                     'gesture': 'right',
                     'time': holdingTime
                 })
-            } else if (position[2] < -5 && v2 < -500 && distance == 1000) {
+            } else if (position[2] < 0 && v2 < -200 && distance == 1000) {
                 $('#gesture').text('front')
                 updataData(database, 'latest', {
                     'gesture': 'front',
                     'time': holdingTime
                 })
-            } else if (position[2] > 30 && v2 > 500 && distance == 1000) {
+            } else if (position[2] > 40 && v2 > 200 && distance == 1000) {
                 $('#gesture').text('back')
                 updataData(database, 'latest', {
                     'gesture': 'back',
