@@ -399,7 +399,7 @@ function addMeteor(ctx, r, count, color, speed) {
             var radius = Math.random() * r
         }
         if(speed == 0) {
-            var speed = 5 + radius * 2
+            var speed = 10 + radius * 5
         }else {
             var speed = speed
         }
