@@ -84,7 +84,7 @@
         },{
             "name": "Her",
             "number": 45,
-            "offsetx": 930,
+            "offsetx": 630,
             "offsety": 60,
             "height": 600,
             "width": 600,
@@ -92,7 +92,7 @@
         },{
             "name": "Cyg",
             "number": 45,
-            "offsetx": 900,
+            "offsetx": 700,
             "offsety": 70,
             "height": 500,
             "width": 500,
