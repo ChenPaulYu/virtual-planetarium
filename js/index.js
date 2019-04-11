@@ -552,12 +552,15 @@ $(document).ready(function () {
     guide.on('value',function (snapshot) {
         var data = snapshot.val().guide
         if(data) {
+            planetarium.toggleInfoBox(target, false)
             planetarium.fov = 60
             planetarium.target = 7
             planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
-            planetarium.restart()
+            setTimeout(() => {
+                planetarium.restart()
+                 guiding = true;
+            }, 2000);
             
-            guiding = true;
         }
     })
 
