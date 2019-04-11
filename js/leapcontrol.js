@@ -10,7 +10,6 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 var controller = new Leap.Controller();
-controller.setBackground(true); 
 controller.connect();
 controller.on('frame', onFrame);
 var newTime = new Date();
@@ -37,7 +36,6 @@ function onFrame(frame) {
             distance = 1000;
         }
 
-        console.log(hand.grabStrength)
         
         newTime = new Date();
         
