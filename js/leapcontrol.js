@@ -10,6 +10,7 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 var controller = new Leap.Controller();
+controller.setBackground(true); 
 controller.connect();
 controller.on('frame', onFrame);
 var newTime = new Date();
@@ -36,6 +37,7 @@ function onFrame(frame) {
             distance = 1000;
         }
 
+        console.log(hand.grabStrength)
         
         newTime = new Date();
         
@@ -45,7 +47,7 @@ function onFrame(frame) {
         $('#velocity').text(v2)
         $('#direction').text(direction)
         $('#normal').text(normal)
-
+        console.log(distance + ' ' + praytime)
         if (distance < 60) {
             holdingTime += newTime - lastTime;
             $('#gesture').text('pray')

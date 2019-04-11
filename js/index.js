@@ -171,7 +171,7 @@ var meteor_c = [];
 var meteor_l = [];
 var meteorites = []
 var stars = []
-var target = 7
+var target = 7 
 var ra = dec_ra[target].ra;
 var dec = dec_ra[target].dec;
 var fov = 60;
@@ -569,6 +569,7 @@ $(document).ready(function () {
     latest.on('value', function (snapshot) {
         var newTime = new Date();
         var gesture = snapshot.val().gesture
+       
         var holdingTime = snapshot.val().time
         if (holdingTime != 0) {
             praytime = holdingTime
@@ -578,14 +579,14 @@ $(document).ready(function () {
                 pray(planetarium, ctx, praytime)
                 praytime = 0
             }
-            if (newTime - lastTime > 500) {
+            if (newTime - lastTime > 100) {
                 if (gesture == 'right') {
                     right(planetarium)
                 } else if (gesture == 'left') {
                     left(planetarium)
-                } else if (gesture == 'front' && !use) {
+                } else if (gesture == 'front' ) {
                     zoomin(planetarium)
-                } else if (gesture == 'back' && !use) {
+                } else if (gesture == 'back' ) {
                     zoomout(planetarium)
                 } else if (gesture == 'none') {
                     detectHand(planetarium)
