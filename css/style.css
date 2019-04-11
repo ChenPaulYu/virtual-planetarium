@@ -73,7 +73,7 @@ body {
 #gestureguide{
     filter: invert(25%);
     position: absolute;
-    width: 30%;
+    width: 50%;
     height: auto;
     margin: auto;
     top: 0;
@@ -85,7 +85,7 @@ body {
 #move {
     filter: invert(100%);
     position: absolute;
-    width: 30%;
+    width: 50%;
     height: auto;
     margin: auto;
     top: 0;
