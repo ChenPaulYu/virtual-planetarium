@@ -157,11 +157,15 @@ const sound = new Tone.Player("./music/bubbles.wav").toMaster();
 const water = new Tone.Player("./music/water.wav").toMaster();
 const earthquake = new Tone.Player("./music/earthquake.wav").toMaster();
 const bass = new Tone.Player("./music/bass.wav").toMaster();
+const dropsound = new Tone.Player("./music/drop.wav").toMaster();
+
 
 sound.setLoopPoints(0, 0.4);
 water.setLoopPoints(0, 0.3);
 earthquake.setLoopPoints(0,1)
 bass.setLoopPoints(0, 0.5)
+dropsound.setLoopPoints(0, 0.4);
+
 
 var meteor_c = []; 
 var meteor_l = [];
@@ -342,7 +346,6 @@ function pray(planetarium, ctx, praytime) {
 function detectHand(planetarium) {
     if (guiding) {
         if (checkstate() == 2) {
-            synth.triggerAttackRelease("C2", "8n");
             planetarium.Anime(2)
         } else {
             return
@@ -505,7 +508,7 @@ $(document).ready(function () {
 
     }, 10);   
 
-    addShiningStar(ctx, 300)
+    addShiningStar(ctx, 500 + Math.round(Math.random()*200))
     setInterval(() => {
         if (meteor_c.length < 50) {
             addMovingStar(w, h, 5)
@@ -519,7 +522,6 @@ $(document).ready(function () {
 
 
     $("body").keydown(function (e) {
-        console.log(e.which)
         switch (e.which) {
 
             case 13: 
@@ -568,7 +570,6 @@ $(document).ready(function () {
         var newTime = new Date();
         var gesture = snapshot.val().gesture
         var holdingTime = snapshot.val().time
-        console.log(holdingTime)
         if (holdingTime != 0) {
             praytime = holdingTime
         } else {

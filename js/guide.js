@@ -1,6 +1,5 @@
 //const anime = require('lib/anime.js');
 //alert("?");
-
 var guideImage = ['eQjYlhI.png', 'fEpAzuJ.png', 'waJWQUP.png', 'GhNDkt7.png', 'Z174U9W.png', 'OmQOQMe.png', 'jzdDjq2.png', 'mjcNEtH.png', 'MW1Hq7U.png', 'auMBnbx.png']
 
 var animation = null;
@@ -60,6 +59,13 @@ function upAndDrop() {
 	var myTimeline = anime.timeline();
 	myTimeline.add(up);
 	myTimeline.add(drop);
+	if(state >= 2) {
+		setTimeout(() => {
+			dropsound.start()
+		}, 100);
+	}
+
+
 	
 }
 
