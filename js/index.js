@@ -552,9 +552,9 @@ $(document).ready(function () {
     guide.on('value',function (snapshot) {
         var data = snapshot.val().guide
         if(data) {
-            planetarium.toggleInfoBox(target, false)
-            planetarium.fov = 60
             planetarium.target = 7
+            planetarium.fov = 60
+            planetarium.toggleInfoBox(target, false)
             planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
             setTimeout(() => {
                 planetarium.restart()
