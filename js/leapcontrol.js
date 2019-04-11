@@ -68,13 +68,13 @@ function onFrame(frame) {
                     'gesture': 'right',
                     'time': holdingTime
                 })
-            } else if (position[2] < 0 && v2 < -200 && distance == 1000) {
+            } else if (position[2] < 0  && distance == 1000) {
                 $('#gesture').text('front')
                 updataData(database, 'latest', {
                     'gesture': 'front',
                     'time': holdingTime
                 })
-            } else if (position[2] > 40 && v2 > 200 && distance == 1000) {
+            } else if (position[2] > 40 && v2 > 500 && distance == 1000) {
                 $('#gesture').text('back')
                 updataData(database, 'latest', {
                     'gesture': 'back',

@@ -322,22 +322,13 @@ function zoomout(planetarium) {
 
 
 function pray(planetarium, ctx, praytime) {
+
     if(praytime == 0) {
         var count = Math.round(Math.random() * 10)
     }else {
         var count = praytime / 500
     }
-    if (guiding) {
-        if (checkstate() == 9) {
-            planetarium.Anime(9)
-            setTimeout(() => {
-                planetarium.Anime(10)
-                guiding = false
-            }, 3000);
-        } else {
-            return
-        }
-    }
+
     console.log(count)
     addMeteor(ctx, 3, count, 'rgba(255,255,255,0.6)', 0, Math.random()*20 + 10);
 }
@@ -573,7 +564,19 @@ $(document).ready(function () {
         
         var holdingTime = snapshot.val().time
         if (holdingTime != 0) {
+            if (guiding) {
+                if (checkstate() == 9) {
+                    planetarium.Anime(9)
+                    setTimeout(() => {
+                        planetarium.Anime(10)
+                        guiding = false
+                    }, 3000);
+                } else {
+                    return
+                }
+            }
             praytime = holdingTime
+            
         } else {
             if (praytime != 0) {
                 console.log('pray')
