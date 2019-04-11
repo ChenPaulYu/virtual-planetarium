@@ -3,13 +3,16 @@
 var guideImage = ['eQjYlhI.png', 'fEpAzuJ.png', 'waJWQUP.png', 'GhNDkt7.png', 'Z174U9W.png', 'OmQOQMe.png', 'jzdDjq2.png', 'mjcNEtH.png', 'MW1Hq7U.png', 'auMBnbx.png']
 
 var animation = null;
-var animation2 = null;
+var ufo = null;
+
+
 var drop = {
 	targets: ".guideAll",
 	translateY: [-1000, 0],
 	duration: 1000,
 	easing: 'easeOutElastic(1, 0.45)'
 };
+
 var up = {
 	targets: ".guideAll",
 	translateY: [0, -2000],
@@ -31,6 +34,16 @@ $(window).bind("load", function() {
 	  direction: 'alternate',
 	  loop: true,
 	  autoplay: false
+	})
+
+	ufo = animation = anime({
+		targets: "#ufo",
+		translateY: [0, 15],
+		duration: 1000,
+		easing: 'linear',
+		direction: 'alternate',
+		loop: true,
+		autoplay: false
 	})
 
 
@@ -121,19 +134,3 @@ function Anime(s) {
 		}
 	}
 }
-
-// $(function() {
-// 	alert("?");
-// 	anime({
-// 	  targets: '#guide',
-// 	  translateX: 250,
-// 	  rotate: '1turn',
-// 	  backgroundColor: '#FFF',
-// 	  duration: 800
-// 	})
-
-
-
-
-
-// });

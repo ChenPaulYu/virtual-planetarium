@@ -236,13 +236,17 @@ function zoomin(planetarium) {
             return
         }
     }
+    
     if(!planetarium.animate) {
-        if (planetarium.fov > 35 && planetarium.fov < 50) {
+        console.log(planetarium.fov)
+        if (planetarium.fov > 35 && planetarium.fov <= 50) {
             planetarium.alpha = 0
             earthquake.start()
+            console.log(planetarium.fov)
              var refreshId = setInterval(function () {
                 planetarium.animate = true;
                 use = true
+                
                 if (planetarium.fov <= 35) {
                     use = false
                     planetarium.animate = false;
@@ -263,7 +267,7 @@ function zoomin(planetarium) {
                     planetarium.animate = false;
                     clearInterval(refreshId);
                 } else {
-                    planetarium.fov -= 0.1
+                    planetarium.fov -= 0.2
                     planetarium.changeFOV(0).draw()
                 }
             }, 10)
@@ -295,7 +299,7 @@ function zoomout(planetarium) {
                 } else {
                     planetarium.animate = true;
                     planetarium.toggleInfoBox(target, false)
-                    planetarium.fov += 0.1
+                    planetarium.fov += 0.2
                     planetarium.changeFOV(0).draw()
                 }
             }, 10)
@@ -317,16 +321,13 @@ function zoomout(planetarium) {
         } else {
             howl.start()
         }
+
+        console.log(planetarium.fov)
     }
 }
 
 
-function pray(planetarium, ctx, praytime) {
-    if(praytime == 0) {
-        var count = Math.round(Math.random() * 10)
-    }else {
-        var count = praytime / 500
-    }
+function prayguide(planetarium) {
     if (guiding) {
         if (checkstate() == 9) {
             planetarium.Anime(9)
@@ -338,6 +339,15 @@ function pray(planetarium, ctx, praytime) {
             return
         }
     }
+}
+
+function pray(ctx, praytime) {
+    if(praytime == 0) {
+        var count = Math.round(Math.random() * 10)
+    }else {
+        var count = praytime / 500
+    }
+
     console.log(count)
     addMeteor(ctx, 3, count, 'rgba(255,255,255,0.6)', 0, Math.random()*20 + 10);
 }
@@ -496,6 +506,11 @@ $(document).ready(function () {
 
     setInterval(() => {
 
+        if(detect) {
+            $('#ufo').css('display','block')
+        }else {
+            $('#ufo').css('display', 'none')
+        }
 
         if (!planetarium.animate) {
             var width = $(document).width();
@@ -525,7 +540,8 @@ $(document).ready(function () {
         switch (e.which) {
 
             case 13: 
-                pray(planetarium,ctx,0)
+                prayguide(planetarium)
+                pray(ctx,0)
                 break;
             case 16:
                 detectHand(planetarium)
@@ -570,14 +586,20 @@ $(document).ready(function () {
     latest.on('value', function (snapshot) {
         var newTime = new Date();
         var gesture = snapshot.val().gesture
+
+        if(gesture != 'null') {
+            detect = true;
+        }else {
+            detect = false;
+        }
         
         var holdingTime = snapshot.val().time
         if (holdingTime != 0) {
             praytime = holdingTime
+            prayguide(planetarium)
         } else {
             if (praytime != 0) {
-                console.log('pray')
-                pray(planetarium, ctx, praytime)
+                pray(ctx, praytime)
                 praytime = 0
             }
             if (newTime - lastTime > 200) {
@@ -610,7 +632,7 @@ $(document).ready(function () {
     $(window).resize(function () {
         stars = []
         addShiningStar(ctx, 500 + Math.round(Math.random() * 200))
-       planetarium.draw()
+        planetarium.draw()
     });
 
 

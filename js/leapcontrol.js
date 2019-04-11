@@ -30,14 +30,23 @@ function onFrame(frame) {
         var v2 = Math.round(velocity[2])
 
 
+
         if(frame.hands.length == 2) {
             distance = Math.abs(frame.hands[0].palmPosition[0] - frame.hands[1].palmPosition[0])
         }else {
             distance = 1000;
         }
 
-        console.log(hand.grabStrength)
-        
+
+        if (position[1] < 150 || position[1] > 300) {
+            holdingTime = 0
+            $('#gesture').text('null')
+            updataData(database, 'latest', {
+                'gesture': 'null',
+                'time': holdingTime
+            })
+            return
+        }        
         newTime = new Date();
         
         $('#position0').text(position[0])
@@ -46,6 +55,7 @@ function onFrame(frame) {
         $('#velocity').text(v2)
         $('#direction').text(direction)
         $('#normal').text(normal)
+
 
         if (distance < 60) {
             holdingTime += newTime - lastTime;
@@ -68,7 +78,7 @@ function onFrame(frame) {
                     'gesture': 'right',
                     'time': holdingTime
                 })
-            } else if (position[2] < 0  && distance == 1000) {
+            } else if (v2 < -400  && distance == 1000) {
                 $('#gesture').text('front')
                 updataData(database, 'latest', {
                     'gesture': 'front',
@@ -95,6 +105,7 @@ function onFrame(frame) {
             'gesture': 'null',
             'time': holdingTime
         })
+
     }
 
     lastTime = newTime

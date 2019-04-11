@@ -4,10 +4,6 @@
 
 #starmap {
      min-height: 100%;
-    /* height: 1000px;
-    width: 50%;
-    margin: auto;
-    margin-top: 50px; */
 
 }
 
@@ -19,58 +15,9 @@ body {
     margin: 0;
 }
 
-/* #canvas {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-} */
-
-/* #guide {
-    filter: invert(100%);
-    position: absolute;
-    width: 80%;
-    height: 80%;
-    margin: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 0;
-    background-color: black;
-    border-radius: 5%;
-    opacity: 0.6;
-} */
-
-#guide_inside {
-    /*position: absolute;*/
-    /*top: 0;*/
-    margin: 0 auto;
-    top: 30% ;
-    -ms-transform: translateY(50%);
-    transform: translateY(50%);
-    /*position: relative;
-  	margin: auto;
-  	margin-top: 20%;
-  	height: 60%;
-  	width: 60%;*/
-
-    z-index: 2;
-}
-
-/* #move {
-
-    display: block;
-    position: relative;
-    width: 30%;
-    height: 30%;
-    max-width: 100px;
-    margin: auto auto;
-    z-index: 3;
-} */
 
 
-#gestureguide{
+#gestureguide, #move, #ufo{
     filter: invert(25%);
     position: absolute;
     width: 50%;
@@ -84,40 +31,11 @@ body {
 }
 #move {
     filter: invert(100%);
-    position: absolute;
     width: 50%;
-    height: auto;
-    margin: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 5%;
 }
 
-
-#text {
-    z-index: 2;
-    position: relative;
-    width: 100%;
-    margin-top: 3%;
-    text-align: center;
+#ufo {
+    margin-bottom: 2rem;
+    width: 3%;
+    display: none;
 }
-
-#harder {
-    color: #00a8a8;
-    font-size: 2.5em;
-}
-
-/* .big_text {
-    font-weight: 600;
-    font-size: 3em;
-} */
-
-/* span {
-    font-weight: 500;
-    width: 100%;
-    display: inline-block;
-    font-size: 1.5em;
-    color: white;
-} */
