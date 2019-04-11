@@ -158,7 +158,7 @@ const water = new Tone.Player("./music/water.wav").toMaster();
 const earthquake = new Tone.Player("./music/earthquake.wav").toMaster();
 const bass = new Tone.Player("./music/bass.wav").toMaster();
 const dropsound = new Tone.Player("./music/drop.wav").toMaster();
-
+const howl = new Tone.Player("./music/howl.wav").toMaster();
 
 sound.setLoopPoints(0, 0.4);
 water.setLoopPoints(0, 0.3);
@@ -199,7 +199,7 @@ function right(planetarium) {
         }
         planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     } else {
-        // synth.triggerAttackRelease("C5", "8n");
+        howl.start()
     }
 }
 function left(planetarium) {
@@ -221,7 +221,7 @@ function left(planetarium) {
         }
         planetarium.panTo(dec_ra[planetarium.target].ra, dec_ra[planetarium.target].dec, 0)
     } else {
-        // synth.triggerAttackRelease("C5", "8n");
+        howl.start()
     }
     console.log('left')
 }
@@ -268,7 +268,7 @@ function zoomin(planetarium) {
                 }
             }, 10)
         } else {
-            // synth.triggerAttackRelease("C5", "8n");
+            howl.start()
         }
     }
 }
@@ -315,7 +315,7 @@ function zoomout(planetarium) {
 
             }, 5)
         } else {
-            // synth.triggerAttackRelease("C5", "8n");
+            howl.start()
         }
     }
 }
@@ -554,6 +554,7 @@ $(document).ready(function () {
     guide.on('value',function (snapshot) {
         var data = snapshot.val().guide
         if(data) {
+            target = 7
             planetarium.target = 7
             planetarium.fov = 60
             planetarium.toggleInfoBox(target, false)
@@ -569,7 +570,7 @@ $(document).ready(function () {
     latest.on('value', function (snapshot) {
         var newTime = new Date();
         var gesture = snapshot.val().gesture
-       
+        
         var holdingTime = snapshot.val().time
         if (holdingTime != 0) {
             praytime = holdingTime
@@ -579,16 +580,23 @@ $(document).ready(function () {
                 pray(planetarium, ctx, praytime)
                 praytime = 0
             }
-            if (newTime - lastTime > 100) {
+            if (newTime - lastTime > 500) {
+                console.log(gesture)
                 if (gesture == 'right') {
                     right(planetarium)
-                } else if (gesture == 'left') {
+                } 
+                if (gesture == 'left') {
                     left(planetarium)
-                } else if (gesture == 'front' ) {
+                }  
+                
+                if (gesture == 'front' ) {
                     zoomin(planetarium)
-                } else if (gesture == 'back' ) {
+                }  
+                
+                if (gesture == 'back' ) {
                     zoomout(planetarium)
-                } else if (gesture == 'none') {
+                } 
+                 if (gesture == 'none') {
                     detectHand(planetarium)
                 }
             }
