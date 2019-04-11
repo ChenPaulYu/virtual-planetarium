@@ -159,6 +159,9 @@ const earthquake = new Tone.Player("./music/earthquake.wav").toMaster();
 const bass = new Tone.Player("./music/bass.wav").toMaster();
 const dropsound = new Tone.Player("./music/drop.wav").toMaster();
 const howl = new Tone.Player("./music/howl.wav").toMaster();
+const accumulate = new Tone.Player("./music/accumulate.wav").toMaster();
+
+
 
 bubble.setLoopPoints(0, 0.4);
 water.setLoopPoints(0, 0.3);
@@ -336,6 +339,9 @@ function zoomout(planetarium) {
 
 
 function prayguide(planetarium) {
+    if (accumulate.state == 'stopped') {
+        accumulate.start()
+    }
     if (guiding) {
         if (checkstate() == 9) {
             planetarium.Anime(9)
@@ -357,6 +363,10 @@ function pray(ctx, praytime) {
     }
 
     console.log(count)
+    if(accumulate.state == 'started') {
+        accumulate.stop()
+    }
+    
     addMeteor(ctx, 3, count, 'rgba(255,255,255,0.6)', 0, Math.random()*20 + 10);
 }
 
@@ -608,6 +618,7 @@ $(document).ready(function () {
         } else {
             if (praytime != 0) {
                 pray(ctx, praytime)
+
                 praytime = 0
             }
             if (newTime - lastTime > 200) {
