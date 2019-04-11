@@ -508,7 +508,7 @@ $(document).ready(function () {
 
     }, 10);   
 
-    addShiningStar(ctx, 500 + Math.round(Math.random()*200))
+    addShiningStar(ctx, 500 + Math.round(Math.random() * 200))
     setInterval(() => {
         if (meteor_c.length < 50) {
             addMovingStar(w, h, 5)
@@ -605,6 +605,12 @@ $(document).ready(function () {
         }
 
         
+    });
+
+    $(window).resize(function () {
+        stars = []
+        addShiningStar(ctx, 500 + Math.round(Math.random() * 200))
+       planetarium.draw()
     });
 
 
