@@ -16,6 +16,9 @@ var newTime = new Date();
 var lastTime = new Date();
 var holdingTime = 0;
 
+
+
+
 function onFrame(frame) {
     
     if (frame.pointables.length > 0) {
@@ -29,7 +32,10 @@ function onFrame(frame) {
         var v0 = Math.round(velocity[0])
         var v2 = Math.round(velocity[2])
 
-
+        updataData(database, 'new', {
+            'gesture': 'front',
+            'time': Math.random()
+        })
 
         if(frame.hands.length == 2) {
             distance = Math.abs(frame.hands[0].palmPosition[0] - frame.hands[1].palmPosition[0])
