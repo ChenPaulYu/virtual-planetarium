@@ -1,2 +1,2 @@
-### [Virtual-Planetarium](https://bernie40916.github.io/virtual-planetarium/)
-### [Leap-Control](https://bernie40916.github.io/virtual-planetarium/leapcontrol.html)
+### [Virtual-Planetarium](https://paulyuchen.com/virtual-planetarium/)
+### [Leap-Control](https://paulyuchen.com/virtual-planetarium/leapcontrol.html)
